@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel 交互式实战训练系统 - V3.0 商业全功能版</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Luckysheet 全功能 Excel 引擎 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/plugins/css/pluginsCss.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/plugins/plugins.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/css/luckysheet.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/assets/iconfont/iconfont.css">
+  <script src="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/plugins/js/plugin.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luckysheet@2.1.13/dist/luckysheet.umd.js"></script>
+
+  <style>
+    .luckysheet_info_detail { display: none !important; }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.right-4{right:1rem}.top-3{top:0.75rem}.z-10{z-index:10}.z-20{z-index:20}.z-50{z-index:50}.col-span-2{grid-column:span 2 / span 2}.mx-auto{margin-left:auto;margin-right:auto}.my-4{margin-top:1rem;margin-bottom:1rem}.mb-1{margin-bottom:0.25rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mt-0\.5{margin-top:0.125rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mb-4{margin-bottom:1rem}.mt-1{margin-top:0.25rem}.mt-2{margin-top:0.5rem}.ml-2{margin-left:0.5rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-14{height:3.5rem}.h-screen{height:100vh}.h-32{height:8rem}.h-full{height:100%}.max-h-48{max-height:12rem}.max-h-40{max-height:10rem}.w-\[36\%\]{width:36%}.w-\[38\%\]{width:38%}.w-32{width:8rem}.w-full{width:100%}.max-w-md{max-width:28rem}.flex-1{flex:1 1 0%}.cursor-pointer{cursor:pointer}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.375rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-2\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.625rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.625rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-x-1 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.25rem * var(--tw-space-x-reverse));margin-left:calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.whitespace-pre-line{white-space:pre-line}.rounded{border-radius:0.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-r-lg{border-top-right-radius:0.5rem;border-bottom-right-radius:0.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-l-4{border-left-width:4px}.border-r{border-right-width:1px}.border-t{border-top-width:1px}.border-amber-400{--tw-border-opacity:1;border-color:rgb(251 191 36 / var(--tw-border-opacity, 1))}.border-blue-200{--tw-border-opacity:1;border-color:rgb(191 219 254 / var(--tw-border-opacity, 1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249 / var(--tw-border-opacity, 1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240 / var(--tw-border-opacity, 1))}.border-slate-300{--tw-border-opacity:1;border-color:rgb(203 213 225 / var(--tw-border-opacity, 1))}.border-slate-500{--tw-border-opacity:1;border-color:rgb(100 116 139 / var(--tw-border-opacity, 1))}.border-white\/30{border-color:rgb(255 255 255 / 0.3)}.border-green-500{--tw-border-opacity:1;border-color:rgb(34 197 94 / var(--tw-border-opacity, 1))}.border-green-400{--tw-border-opacity:1;border-color:rgb(74 222 128 / var(--tw-border-opacity, 1))}.bg-\[\#107c41\]{--tw-bg-opacity:1;background-color:rgb(16 124 65 / var(--tw-bg-opacity, 1))}.bg-amber-400{--tw-bg-opacity:1;background-color:rgb(251 191 36 / var(--tw-bg-opacity, 1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235 / var(--tw-bg-opacity, 1))}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.bg-blue-50{--tw-bg-opacity:1;background-color:rgb(239 246 255 / var(--tw-bg-opacity, 1))}.bg-green-100{--tw-bg-opacity:1;background-color:rgb(220 252 231 / var(--tw-bg-opacity, 1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249 / var(--tw-bg-opacity, 1))}.bg-slate-200{--tw-bg-opacity:1;background-color:rgb(226 232 240 / var(--tw-bg-opacity, 1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252 / var(--tw-bg-opacity, 1))}.bg-slate-700{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-900\/40{background-color:rgb(15 23 42 / 0.4)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-white\/15{background-color:rgb(255 255 255 / 0.15)}.bg-black\/60{background-color:rgb(0 0 0 / 0.6)}.bg-green-600{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-green-50{--tw-bg-opacity:1;background-color:rgb(240 253 244 / var(--tw-bg-opacity, 1))}.bg-pink-500{--tw-bg-opacity:1;background-color:rgb(236 72 153 / var(--tw-bg-opacity, 1))}.p-3{padding:0.75rem}.p-3\.5{padding:0.875rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-2{padding:0.5rem}.p-6{padding:1.5rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.pt-1{padding-top:0.25rem}.pb-1\.5{padding-bottom:0.375rem}.text-left{text-align:left}.text-center{text-align:center}.font-sans{font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-\[11px\]{font-size:11px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-normal{font-weight:400}.font-medium{font-weight:500}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.tracking-wide{letter-spacing:0.025em}.text-\[\#107c41\]{--tw-text-opacity:1;color:rgb(16 124 65 / var(--tw-text-opacity, 1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14 / var(--tw-text-opacity, 1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15 / var(--tw-text-opacity, 1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175 / var(--tw-text-opacity, 1))}.text-green-800{--tw-text-opacity:1;color:rgb(22 101 52 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85 / var(--tw-text-opacity, 1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59 / var(--tw-text-opacity, 1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-amber-300{--tw-text-opacity:1;color:rgb(252 211 77 / var(--tw-text-opacity, 1))}.text-red-600{--tw-text-opacity:1;color:rgb(220 38 38 / var(--tw-text-opacity, 1))}.text-green-900{--tw-text-opacity:1;color:rgb(20 83 45 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.line-through{-webkit-text-decoration-line:line-through;text-decoration-line:line-through}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-amber-300:hover{--tw-bg-opacity:1;background-color:rgb(252 211 77 / var(--tw-bg-opacity, 1))}.hover\:bg-amber-600:hover{--tw-bg-opacity:1;background-color:rgb(217 119 6 / var(--tw-bg-opacity, 1))}.hover\:bg-green-800:hover{--tw-bg-opacity:1;background-color:rgb(22 101 52 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-300:hover{--tw-bg-opacity:1;background-color:rgb(203 213 225 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-600:hover{--tw-bg-opacity:1;background-color:rgb(71 85 105 / var(--tw-bg-opacity, 1))}.hover\:bg-white\/25:hover{background-color:rgb(255 255 255 / 0.25)}.hover\:bg-slate-900:hover{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-100:hover{--tw-bg-opacity:1;background-color:rgb(241 245 249 / var(--tw-bg-opacity, 1))}.hover\:text-red-500:hover{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.hover\:text-slate-800:hover{--tw-text-opacity:1;color:rgb(30 41 59 / var(--tw-text-opacity, 1))}.hover\:text-slate-700:hover{--tw-text-opacity:1;color:rgb(51 65 85 / var(--tw-text-opacity, 1))}.hover\:text-red-700:hover{--tw-text-opacity:1;color:rgb(185 28 28 / var(--tw-text-opacity, 1))}.focus\:border-green-600:focus{--tw-border-opacity:1;border-color:rgb(22 163 74 / var(--tw-border-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}</style></head>
+<body class="bg-slate-100 h-screen flex flex-col overflow-hidden font-sans">
+
+  <!-- 顶部导航栏 -->
+  <header class="bg-[#107c41] text-white h-14 flex items-center justify-between px-6 shadow-md z-20">
+    <div class="flex items-center space-x-3">
+      <div class="bg-white text-[#107c41] font-extrabold px-2 py-0.5 rounded text-sm">XLS</div>
+      <h1 class="font-bold text-lg tracking-wide">Excel 交互式实战训练系统</h1>
+      <span id="mode-badge" class="bg-pink-500 text-white font-bold text-xs px-2.5 py-0.5 rounded-full">🛠️ 教师出题模式</span>
+    </div>
+    
+    <div class="flex items-center space-x-3">
+      <!-- 模式切换按钮 -->
+      <button onclick="toggleTeacherMode()" id="teacher-btn" class="bg-white/15 hover:bg-white/25 text-white border border-white/30 text-xs px-3 py-1.5 rounded transition">🎓 返回学员模式</button>
+
+      <span id="vip-badge" class="bg-amber-400 text-slate-900 font-bold text-xs px-3 py-1.5 rounded-full">👑 尊贵的全栈 VIP 会员</span>
+      <button onclick="openPayModal()" id="buy-btn" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-sm px-4 py-1.5 rounded shadow transition hidden">
+        👑 激活全栈 VIP
+      </button>
+    </div>
+  </header>
+
+  <!-- 主体内容区 -->
+  <div class="flex-1 flex overflow-hidden">
+    
+    <!-- ==================== 左侧面板 A：学员学习界面 ==================== -->
+    <div id="student-left-panel" class="w-[36%] bg-white border-r border-slate-200 flex flex-col z-10 shadow-lg">
+      <!-- 课程目录 -->
+      <div class="p-4 border-b border-slate-100 bg-slate-50 max-h-48 overflow-y-auto">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs font-bold text-slate-400">课程闯关目录（点击切换）</span>
+          <button onclick="clearLocalProgress()" class="text-[11px] text-slate-400 hover:text-red-500 underline">重置学习进度</button>
+        </div>
+        <div id="lesson-list" class="space-y-1.5"></div>
+      </div>
+
+      <!-- 知识点讲解区 -->
+      <div class="flex-1 p-5 overflow-y-auto">
+        <div class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded mb-2" id="lesson-tag">第 4 关 · 目标单元格：【D3】</div>
+        <h2 class="text-xl font-bold text-slate-800 mb-3" id="lesson-title">查找之王：VLOOKUP 函数</h2>
+        <div class="text-slate-600 space-y-2.5 leading-relaxed text-sm" id="lesson-content"><p><b>VLOOKUP</b> 可以直接用鼠标点选查找值和查找区域！</p><p><b>语法格式：</b><code>=VLOOKUP(找谁, 区域, 第几列, 0)</code></p></div>
+
+        <!-- 实操任务卡片 -->
+        <div class="mt-5 bg-amber-50 border-l-4 border-amber-400 p-3.5 rounded-r-lg">
+          <div class="font-bold text-amber-900 text-sm mb-1">🎯 本关实操任务：</div>
+          <div class="text-amber-800 text-sm" id="lesson-task">已知 D2 是“李四”，请在黄色单元格【D3】中用 VLOOKUP 在 A1:B4 区域查找他的基本工资（第2列，精确匹配填0）。</div>
+        </div>
+
+        <!-- 判题反馈提示框 -->
+        <div id="feedback-box" class="mt-4 p-3.5 rounded-lg border bg-green-50 border-green-400 text-green-900 text-sm font-medium whitespace-pre-line">🎉 太棒了！完全正确！<br>你编写的公式：=vlookup(D2,A1:B4,2,0)<br>计算结果：8500</div>
+      </div>
+
+      <!-- 底部提交与判题栏 -->
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex flex-col space-y-2">
+        <div class="flex space-x-2">
+          <button onclick="checkAnswer()" class="flex-1 bg-[#107c41] hover:bg-green-800 text-white font-bold py-2.5 rounded-lg shadow transition text-sm">
+            ✓ 提交并检验公式结果
+          </button>
+          <button onclick="resetSheet()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-2.5 rounded-lg text-sm transition">
+            重置本关表格
+          </button>
+        </div>
+        <div class="flex justify-between items-center pt-1">
+          <button onclick="showHint()" class="text-slate-500 hover:text-slate-800 text-xs underline">💡 不会做？查看答案提示</button>
+          <button onclick="nextLesson()" id="next-btn" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-1 rounded font-bold text-xs shadow transition">
+            进入下一关 →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 左侧面板 B：教师可视化出题后台 ==================== -->
+    <div id="teacher-left-panel" class="w-[38%] bg-slate-50 border-r border-slate-300 flex flex-col z-10 shadow-xl hidden">
+      <div class="p-4 bg-slate-800 text-white flex justify-between items-center">
+        <div>
+          <h2 class="font-bold text-base">🛠️ 教师可视化出题工作台</h2>
+          <p class="text-xs text-slate-300 mt-0.5">在右侧表格直接打字设计题目，在下方填写判题规则</p>
+        </div>
+        <button onclick="clearTeacherGrid()" class="bg-slate-700 hover:bg-slate-600 text-xs px-2.5 py-1.5 rounded border border-slate-500">
+          清空右侧画布
+        </button>
+      </div>
+
+      <!-- 出题表单 -->
+      <div class="flex-1 p-5 overflow-y-auto space-y-4 text-sm">
+        
+        <div class="bg-blue-50 border border-blue-200 text-blue-800 p-3 rounded-lg text-xs leading-relaxed">
+          <b>💡 零代码出题 3 步曲：</b><br>
+          1. 先在<b>右侧 Excel 表格</b>中直接打字输入本关的初始表格数据（目标答题格留空即可）。<br>
+          2. 填写下方课程信息与判题答案。<br>
+          3. 点击底部【➕ 保存并发布新课程】，立刻生效！
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div class="col-span-2">
+            <label class="block text-xs font-bold text-slate-700 mb-1">课程标题 *</label>
+            <input id="t-title" type="text" placeholder="例如：最大值：MAX 函数" class="w-full border border-slate-300 rounded px-3 py-1.5 bg-white focus:outline-none focus:border-green-600">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">收费属性 *</label>
+            <select id="t-free" class="w-full border border-slate-300 rounded px-2 py-1.5 bg-white">
+              <option value="false">🔒 VIP 收费课</option>
+              <option value="true">🆓 免费试学课</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">知识点讲解内容（支持换行） *</label>
+          <textarea id="t-content" rows="3" placeholder="在这里输入函数的讲解说明、语法格式，比如：=MAX(区域) 可以找出一组数字中的最大值..." class="w-full border border-slate-300 rounded px-3 py-1.5 bg-white focus:outline-none focus:border-green-600"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">本关实操任务要求 *</label>
+          <textarea id="t-task" rows="2" placeholder="例如：请在黄色单元格【B5】中，使用 MAX 函数找出最高销售额。" class="w-full border border-slate-300 rounded px-3 py-1.5 bg-white focus:outline-none focus:border-green-600"></textarea>
+        </div>
+
+        <!-- 判题核心参数 -->
+        <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-3">
+          <div class="font-bold text-xs text-green-800 border-b pb-1.5">🎯 自动判题核心规则设置</div>
+          
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">目标单元格 *</label>
+              <input id="t-cell" type="text" placeholder="如 B5 或 C2" class="w-full border border-slate-300 rounded px-2.5 py-1.5 font-mono uppercase bg-amber-50">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">必用函数名 *</label>
+              <input id="t-keyword" type="text" placeholder="如 MAX" class="w-full border border-slate-300 rounded px-2.5 py-1.5 font-mono uppercase">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">正确计算结果 *</label>
+              <input id="t-expected" type="text" placeholder="如 1800" class="w-full border border-slate-300 rounded px-2.5 py-1.5 font-mono">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">答案提示（学员点击“不会做”时显示） *</label>
+            <input id="t-hint" type="text" placeholder="例如：双击 B5 单元格，输入 =MAX(B2:B4) 并按回车" class="w-full border border-slate-300 rounded px-2.5 py-1.5">
+          </div>
+        </div>
+
+        <!-- 现有课程管理与删除 -->
+        <div class="bg-white p-3.5 rounded-lg border border-slate-200">
+          <div class="font-bold text-xs text-slate-700 mb-2">📚 已发布的课程列表（可删除）</div>
+          <div id="teacher-lesson-manage" class="space-y-1.5 max-h-40 overflow-y-auto"></div>
+        </div>
+
+      </div>
+
+      <!-- 底部保存与打包导出按钮 -->
+      <div class="p-4 border-t border-slate-300 bg-white space-y-2">
+        <button onclick="saveNewLesson()" class="w-full bg-[#107c41] hover:bg-green-800 text-white font-bold py-2.5 rounded-lg shadow transition text-sm">
+          ➕ 保存并发布这节新课程
+        </button>
+        <button onclick="exportUpdatedHtmlFile()" class="w-full bg-slate-800 hover:bg-slate-900 text-amber-300 font-bold py-2 rounded-lg shadow transition text-xs flex items-center justify-center space-x-1">
+          <span>💾 导出包含最新题库的完整网站文件 (index.html)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== 右侧：全功能 Excel 引擎容器 ==================== -->
+    <div class="flex-1 relative bg-white">
+      <div id="luckysheet-container" class="w-full h-full" tabindex="0"></div>
+    </div>
+
+  </div>
+
+  <!-- 付费与 VIP 激活码解锁弹窗 -->
+  <div id="pay-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 text-center relative">
+      <button onclick="closePayModal()" class="absolute top-3 right-4 text-slate-400 hover:text-slate-700 text-xl">×</button>
+      <div class="text-4xl mb-1">👑</div>
+      <h3 class="text-xl font-bold text-slate-800">解锁全部高阶 Excel 实战课程</h3>
+      <p class="text-xs text-slate-500 mt-1">一次激活，永久解锁全部职场核心关卡</p>
+      
+      <div class="my-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
+        <div class="text-3xl font-extrabold text-[#107c41]">¥ 99.00 <span class="text-sm font-normal text-slate-400 line-through">¥299</span></div>
+        <div class="mt-2 w-32 h-32 mx-auto bg-white border p-2 flex items-center justify-center text-xs text-slate-500 leading-relaxed">
+          扫码付款后添加老师微信<br>获取您的专属【VIP激活码】
+        </div>
+      </div>
+
+      <!-- 激活码输入框 -->
+      <div class="text-left mb-4">
+        <label class="block text-xs font-bold text-slate-700 mb-1">🔑 已有激活码？在此输入立即解锁：</label>
+        <div class="flex space-x-2">
+          <input id="vip-code-input" type="text" placeholder="测试激活码请输入：VIP888" class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm font-mono uppercase focus:outline-none focus:border-green-600">
+          <button onclick="verifyVipCode()" class="bg-[#107c41] hover:bg-green-800 text-white font-bold px-4 py-2 rounded-lg text-sm transition">
+            立即激活
+          </button>
+        </div>
+        <p id="vip-error-msg" class="text-xs text-red-600 mt-1 hidden"></p>
+      </div>
+    </div>
+  </div>
+
+  <script id="main-app-script">
+    // ==================== 1. 核心数据与本地持久化 ====================
+    const STORAGE_KEY_LESSONS = 'excel_train_lessons_v3';
+    const STORAGE_KEY_VIP = 'excel_train_vip_v3';
+
+    // 有效 VIP 激活码列表（你可以随时在这里添加新的激活码）
+    const VALID_VIP_CODES = ['VIP888', 'EXCEL999', '888888', 'VIP2025'];
+    // 教师后台管理密码
+    const TEACHER_PIN = '8888';
+
+    let isVip = localStorage.getItem(STORAGE_KEY_VIP) === 'true';
+    let isTeacherMode = false;
+    let currentLessonIndex = 0;
+
+    // 默认初始题库（当教师导出新 HTML 文件时，下面这段数组会被自动替换为最新题库）
+    /*__LESSONS_DATA_START__*/
+    const DEFAULT_LESSONS = [
+  {
+    "id": 1,
+    "title": "快速求和：SUM 函数",
+    "free": true,
+    "completed": false,
+    "content": "<p>在真实 Excel 中，输入公式时不需要手敲单元格坐标，直接用鼠标框选即可！</p><p><b>操作步骤：</b>双击右侧黄色的 <b>B5</b> 单元格，输入 <code>=SUM(</code> ，然后用鼠标按住 <b>B2</b> 拖到 <b>B4</b>，按回车键完成计算。</p>",
+    "task": "在黄色单元格【B5】中，使用 SUM 函数计算出 1~3 月销售额总和。",
+    "targetCellName": "B5",
+    "targetRow": 4,
+    "targetCol": 1,
+    "expectedValue": "4500",
+    "requiredKeyword": "SUM",
+    "hint": "双击 B5 单元格，输入 =SUM(B2:B4) 并按回车键，再点击提交按钮。",
+    "celldata": [
+      {
+        "r": 0,
+        "c": 0,
+        "v": {
+          "v": "月份",
+          "m": "月份",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 0,
+        "c": 1,
+        "v": {
+          "v": "销售额(元)",
+          "m": "销售额(元)",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 1,
+        "c": 0,
+        "v": {
+          "v": "1月",
+          "m": "1月"
+        }
+      },
+      {
+        "r": 1,
+        "c": 1,
+        "v": {
+          "v": 1200,
+          "m": "1200"
+        }
+      },
+      {
+        "r": 2,
+        "c": 0,
+        "v": {
+          "v": "2月",
+          "m": "2月"
+        }
+      },
+      {
+        "r": 2,
+        "c": 1,
+        "v": {
+          "v": 1500,
+          "m": "1500"
+        }
+      },
+      {
+        "r": 3,
+        "c": 0,
+        "v": {
+          "v": "3月",
+          "m": "3月"
+        }
+      },
+      {
+        "r": 3,
+        "c": 1,
+        "v": {
+          "v": 1800,
+          "m": "1800"
+        }
+      },
+      {
+        "r": 4,
+        "c": 0,
+        "v": {
+          "v": "总计",
+          "m": "总计",
+          "bl": 1
+        }
+      },
+      {
+        "r": 4,
+        "c": 1,
+        "v": {
+          "v": "",
+          "m": "",
+          "bg": "#fef08a"
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "计算均值：AVERAGE 函数",
+    "free": true,
+    "completed": false,
+    "content": "<p>学会了求和，计算平均值也是同样的操作方式！</p><p><b>语法格式：</b><code>=AVERAGE(起始格:结束格)</code></p>",
+    "task": "在黄色单元格【B5】中，使用 AVERAGE 函数计算 3 位员工的平均绩效得分。",
+    "targetCellName": "B5",
+    "targetRow": 4,
+    "targetCol": 1,
+    "expectedValue": "85",
+    "requiredKeyword": "AVERAGE",
+    "hint": "双击 B5 单元格，输入 =AVERAGE(B2:B4) 并按回车键。",
+    "celldata": [
+      {
+        "r": 0,
+        "c": 0,
+        "v": {
+          "v": "员工姓名",
+          "m": "员工姓名",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 0,
+        "c": 1,
+        "v": {
+          "v": "绩效得分",
+          "m": "绩效得分",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 1,
+        "c": 0,
+        "v": {
+          "v": "张三",
+          "m": "张三"
+        }
+      },
+      {
+        "r": 1,
+        "c": 1,
+        "v": {
+          "v": 80,
+          "m": "80"
+        }
+      },
+      {
+        "r": 2,
+        "c": 0,
+        "v": {
+          "v": "李四",
+          "m": "李四"
+        }
+      },
+      {
+        "r": 2,
+        "c": 1,
+        "v": {
+          "v": 85,
+          "m": "85"
+        }
+      },
+      {
+        "r": 3,
+        "c": 0,
+        "v": {
+          "v": "王五",
+          "m": "王五"
+        }
+      },
+      {
+        "r": 3,
+        "c": 1,
+        "v": {
+          "v": 90,
+          "m": "90"
+        }
+      },
+      {
+        "r": 4,
+        "c": 0,
+        "v": {
+          "v": "平均分",
+          "m": "平均分",
+          "bl": 1
+        }
+      },
+      {
+        "r": 4,
+        "c": 1,
+        "v": {
+          "v": "",
+          "m": "",
+          "bg": "#fef08a"
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "逻辑判断：IF 条件函数",
+    "free": false,
+    "completed": false,
+    "content": "<p><b>IF 函数</b>可以根据条件自动输出不同的文字结果。</p><p><b>语法格式：</b><code>=IF(条件, \"达标\", \"不达标\")</code></p>",
+    "task": "在黄色单元格【C2】中，使用 IF 函数判断 B2 是否大于等于 60，若是则显示“达标”，否则显示“不达标”。",
+    "targetCellName": "C2",
+    "targetRow": 1,
+    "targetCol": 2,
+    "expectedValue": "达标",
+    "requiredKeyword": "IF",
+    "hint": "双击 C2 单元格，输入 =IF(B2>=60,\"达标\",\"不达标\") 并按回车键。",
+    "celldata": [
+      {
+        "r": 0,
+        "c": 0,
+        "v": {
+          "v": "姓名",
+          "m": "姓名",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 0,
+        "c": 1,
+        "v": {
+          "v": "考核分",
+          "m": "考核分",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 0,
+        "c": 2,
+        "v": {
+          "v": "考核结果",
+          "m": "考核结果",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 1,
+        "c": 0,
+        "v": {
+          "v": "张三",
+          "m": "张三"
+        }
+      },
+      {
+        "r": 1,
+        "c": 1,
+        "v": {
+          "v": 75,
+          "m": "75"
+        }
+      },
+      {
+        "r": 1,
+        "c": 2,
+        "v": {
+          "v": "",
+          "m": "",
+          "bg": "#fef08a"
+        }
+      },
+      {
+        "r": 2,
+        "c": 0,
+        "v": {
+          "v": "李四",
+          "m": "李四"
+        }
+      },
+      {
+        "r": 2,
+        "c": 1,
+        "v": {
+          "v": 52,
+          "m": "52"
+        }
+      },
+      {
+        "r": 2,
+        "c": 2,
+        "v": {
+          "v": "不达标",
+          "m": "不达标"
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "查找之王：VLOOKUP 函数",
+    "free": false,
+    "completed": false,
+    "content": "<p><b>VLOOKUP</b> 可以直接用鼠标点选查找值和查找区域！</p><p><b>语法格式：</b><code>=VLOOKUP(找谁, 区域, 第几列, 0)</code></p>",
+    "task": "已知 D2 是“李四”，请在黄色单元格【D3】中用 VLOOKUP 在 A1:B4 区域查找他的基本工资（第2列，精确匹配填0）。",
+    "targetCellName": "D3",
+    "targetRow": 2,
+    "targetCol": 3,
+    "expectedValue": "8500",
+    "requiredKeyword": "VLOOKUP",
+    "hint": "双击 D3 单元格，输入 =VLOOKUP(D2,A1:B4,2,0) 并按回车键。",
+    "celldata": [
+      {
+        "r": 0,
+        "c": 0,
+        "v": {
+          "v": "姓名",
+          "m": "姓名",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 0,
+        "c": 1,
+        "v": {
+          "v": "基本工资",
+          "m": "基本工资",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 0,
+        "c": 3,
+        "v": {
+          "v": "查询面板",
+          "m": "查询面板",
+          "bg": "#dcfce7",
+          "bl": 1
+        }
+      },
+      {
+        "r": 1,
+        "c": 0,
+        "v": {
+          "v": "张三",
+          "m": "张三"
+        }
+      },
+      {
+        "r": 1,
+        "c": 1,
+        "v": {
+          "v": 6000,
+          "m": "6000"
+        }
+      },
+      {
+        "r": 1,
+        "c": 3,
+        "v": {
+          "v": "李四",
+          "m": "李四",
+          "bl": 1
+        }
+      },
+      {
+        "r": 2,
+        "c": 0,
+        "v": {
+          "v": "李四",
+          "m": "李四"
+        }
+      },
+      {
+        "r": 2,
+        "c": 1,
+        "v": {
+          "v": 8500,
+          "m": "8500"
+        }
+      },
+      {
+        "r": 2,
+        "c": 3,
+        "v": {
+          "v": "",
+          "m": "",
+          "bg": "#fef08a"
+        }
+      },
+      {
+        "r": 3,
+        "c": 0,
+        "v": {
+          "v": "王五",
+          "m": "王五"
+        }
+      },
+      {
+        "r": 3,
+        "c": 1,
+        "v": {
+          "v": 9200,
+          "m": "9200"
+        }
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "求最大值：MAX 函数",
+    "free": false,
+    "completed": false,
+    "content": "<p>使用 =MAX(区域) 可以找出一组数字里的最高值。</p>",
+    "task": "请在黄色单元格【B5】中，使用 MAX 函数找出最高销售额。",
+    "targetCellName": "B5",
+    "targetRow": 4,
+    "targetCol": 1,
+    "expectedValue": "2800",
+    "requiredKeyword": "MAX",
+    "hint": "请在 B5 中使用 MAX 函数完成计算。",
+    "celldata": [
+      {
+        "r": 0,
+        "c": 0,
+        "v": {
+          "v": "部门",
+          "m": "部门",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 0,
+        "c": 1,
+        "v": {
+          "v": "销售额",
+          "m": "销售额",
+          "bg": "#f1f5f9",
+          "bl": 1
+        }
+      },
+      {
+        "r": 1,
+        "c": 0,
+        "v": {
+          "v": "一部",
+          "m": "一部",
+          "bg": null,
+          "bl": 0
+        }
+      },
+      {
+        "r": 1,
+        "c": 1,
+        "v": {
+          "v": 1500,
+          "m": "1500",
+          "bg": null,
+          "bl": 0
+        }
+      },
+      {
+        "r": 2,
+        "c": 0,
+        "v": {
+          "v": "二部",
+          "m": "二部",
+          "bg": null,
+          "bl": 0
+        }
+      },
+      {
+        "r": 2,
+        "c": 1,
+        "v": {
+          "v": 2800,
+          "m": "2800",
+          "bg": null,
+          "bl": 0
+        }
+      },
+      {
+        "r": 3,
+        "c": 0,
+        "v": {
+          "v": "三部",
+          "m": "三部",
+          "bg": null,
+          "bl": 0
+        }
+      },
+      {
+        "r": 3,
+        "c": 1,
+        "v": {
+          "v": 1900,
+          "m": "1900",
+          "bg": null,
+          "bl": 0
+        }
+      },
+      {
+        "r": 4,
+        "c": 0,
+        "v": {
+          "v": "最高业绩",
+          "m": "最高业绩",
+          "bg": null,
+          "bl": 1
+        }
+      },
+      {
+        "r": 4,
+        "c": 1,
+        "v": {
+          "v": "",
+          "m": "",
+          "bg": "#fef08a"
+        }
+      }
+    ]
+  }
+];
+    /*__LESSONS_DATA_END__*/
+
+    // 读取本地保存的题库或使用默认题库
+    let lessons = JSON.parse(localStorage.getItem(STORAGE_KEY_LESSONS)) || DEFAULT_LESSONS;
+
+    function saveLessonsToStorage() {
+      localStorage.setItem(STORAGE_KEY_LESSONS, JSON.stringify(lessons));
+    }
+
+    // ==================== 2. 学员端核心逻辑 ====================
+    function updateVipUI() {
+      if (isVip) {
+        document.getElementById('vip-badge').innerText = '👑 尊贵的全栈 VIP 会员';
+        document.getElementById('vip-badge').className = 'bg-amber-400 text-slate-900 font-bold text-xs px-3 py-1.5 rounded-full';
+        document.getElementById('buy-btn').classList.add('hidden');
+      }
+    }
+
+    function renderLessonList() {
+      const container = document.getElementById('lesson-list');
+      container.innerHTML = '';
+      lessons.forEach((lesson, idx) => {
+        const isLocked = !lesson.free && !isVip;
+        const activeClass = idx === currentLessonIndex ? 'bg-green-100 border-green-500 text-green-900 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100';
+        
+        const btn = document.createElement('div');
+        btn.className = `px-3 py-2 rounded border text-xs flex justify-between items-center cursor-pointer transition ${activeClass}`;
+        btn.onclick = () => selectLesson(idx);
+        
+        let badge = lesson.completed 
+          ? '<span class="bg-green-600 text-white px-2 py-0.5 rounded">✓ 已通关</span>'
+          : (isLocked ? '<span class="bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded">🔒 VIP</span>' : '<span class="bg-slate-200 text-slate-600 px-2 py-0.5 rounded">免费</span>');
+
+        btn.innerHTML = `<span>第 ${idx + 1} 课：${lesson.title}</span> ${badge}`;
+        container.appendChild(btn);
+      });
+    }
+
+    function selectLesson(index) {
+      const lesson = lessons[index];
+      if (!lesson) return;
+      if (!lesson.free && !isVip) {
+        openPayModal();
+        return;
+      }
+      currentLessonIndex = index;
+      renderLessonList();
+      
+      document.getElementById('lesson-tag').innerText = `第 ${index + 1} 关 · 目标单元格：【${lesson.targetCellName}】`;
+      document.getElementById('lesson-title').innerText = lesson.title;
+      document.getElementById('lesson-content').innerHTML = lesson.content;
+      document.getElementById('lesson-task').innerText = lesson.task;
+      document.getElementById('feedback-box').className = 'hidden';
+      document.getElementById('next-btn').classList.add('hidden');
+
+      initExcelEngine(lesson.celldata);
+    }
+
+    function initExcelEngine(celldataArray) {
+      const initialCells = JSON.parse(JSON.stringify(celldataArray || []));
+      luckysheet.create({
+        container: 'luckysheet-container',
+        lang: 'zh',
+        showinfobar: false,
+        showsheetbar: false,
+        showstatisticBar: false,
+        enableAddRow: false,
+        enableAddBackTop: false,
+        row: 18,
+        column: 8,
+        data: [{
+          name: "实操练习表",
+          status: 1,
+          celldata: initialCells,
+          config: {
+            columnlen: { "0": 110, "1": 120, "2": 120, "3": 120, "4": 110 }
+          }
+        }]
+      });
+    }
+
+    function checkAnswer() {
+      if (luckysheet.exitEditMode) luckysheet.exitEditMode();
+
+      const lesson = lessons[currentLessonIndex];
+      const sheetData = luckysheet.getSheetData();
+      const cellObj = sheetData[lesson.targetRow] ? sheetData[lesson.targetRow][lesson.targetCol] : null;
+
+      if (!cellObj || cellObj.v === undefined || cellObj.v === "" || cellObj.v === null) {
+        showFeedback(false, `⚠️ 目标单元格【${lesson.targetCellName}】还是空的哦！请双击它输入公式并按回车键。`);
+        return;
+      }
+
+      const actualValue = cellObj.v;
+      const actualFormula = cellObj.f || "";
+
+      if (!actualFormula) {
+        showFeedback(false, `❌ 检测到你在【${lesson.targetCellName}】中直接填写了 "${actualValue}"，没有使用公式！必须以 "=" 开头编写函数哦。`);
+        return;
+      }
+
+      const upperFormula = actualFormula.toUpperCase();
+      if (!upperFormula.includes(lesson.requiredKeyword.toUpperCase())) {
+        showFeedback(false, `❌ 你的公式是 ${actualFormula}，但本关要求必须使用【${lesson.requiredKeyword}】函数！`);
+        return;
+      }
+
+      if (String(actualValue).trim() === String(lesson.expectedValue).trim()) {
+        lesson.completed = true;
+        saveLessonsToStorage();
+        renderLessonList();
+        showFeedback(true, `🎉 太棒了！完全正确！\n你编写的公式：${actualFormula}\n计算结果：${actualValue}`);
+        document.getElementById('next-btn').classList.remove('hidden');
+      } else {
+        showFeedback(false, `❌ 公式已运行，但算出来的结果是【${actualValue}】，而正确结果应该是【${lesson.expectedValue}】。请检查单元格区域是否选对！`);
+      }
+    }
+
+    function showFeedback(success, msg) {
+      const box = document.getElementById('feedback-box');
+      box.className = success 
+        ? 'mt-4 p-3.5 rounded-lg border bg-green-50 border-green-400 text-green-900 text-sm font-medium whitespace-pre-line'
+        : 'mt-4 p-3.5 rounded-lg border bg-red-50 border-red-300 text-red-800 text-sm font-medium whitespace-pre-line';
+      box.innerText = msg;
+    }
+
+    function showHint() { showFeedback(false, `💡 答案提示：${lessons[currentLessonIndex].hint}`); }
+    function resetSheet() { selectLesson(currentLessonIndex); }
+    function nextLesson() {
+      if (currentLessonIndex + 1 < lessons.length) {
+        selectLesson(currentLessonIndex + 1);
+      } else {
+        alert("🎉 恭喜！你已通关当前全部课程！");
+      }
+    }
+    function clearLocalProgress() {
+      if (confirm("确定要重置所有通关记录和 VIP 测试状态吗？")) {
+        localStorage.removeItem(STORAGE_KEY_VIP);
+        lessons.forEach(l => l.completed = false);
+        saveLessonsToStorage();
+        location.reload();
+      }
+    }
+
+    // ==================== 3. 教师可视化出题后台逻辑 ====================
+    function toggleTeacherMode() {
+      if (!isTeacherMode) {
+        const pin = prompt("请输入教师后台管理密码（默认密码：8888）：", "8888");
+        if (pin !== TEACHER_PIN) {
+          if (pin !== null) alert("密码错误！");
+          return;
+        }
+        isTeacherMode = true;
+        document.getElementById('student-left-panel').classList.add('hidden');
+        document.getElementById('teacher-left-panel').classList.remove('hidden');
+        document.getElementById('mode-badge').innerText = '🛠️ 教师出题模式';
+        document.getElementById('mode-badge').className = 'bg-pink-500 text-white font-bold text-xs px-2.5 py-0.5 rounded-full';
+        document.getElementById('teacher-btn').innerText = '🎓 返回学员模式';
+        renderTeacherManageList();
+        clearTeacherGrid();
+      } else {
+        isTeacherMode = false;
+        document.getElementById('teacher-left-panel').classList.add('hidden');
+        document.getElementById('student-left-panel').classList.remove('hidden');
+        document.getElementById('mode-badge').innerText = '🎓 学员闯关模式';
+        document.getElementById('mode-badge').className = 'bg-amber-400 text-slate-900 font-bold text-xs px-2.5 py-0.5 rounded-full';
+        document.getElementById('teacher-btn').innerText = '🛠️ 教师出题后台';
+        selectLesson(currentLessonIndex);
+      }
+    }
+
+    // 初始化教师出题示范画布
+    function clearTeacherGrid() {
+      initExcelEngine([
+        { r: 0, c: 0, v: { v: "部门", m: "部门", bg: "#f1f5f9", bl: 1 } },
+        { r: 0, c: 1, v: { v: "销售额", m: "销售额", bg: "#f1f5f9", bl: 1 } },
+        { r: 1, c: 0, v: { v: "一部", m: "一部" } },
+        { r: 1, c: 1, v: { v: 1500, m: "1500" } },
+        { r: 2, c: 0, v: { v: "二部", m: "二部" } },
+        { r: 2, c: 1, v: { v: 2800, m: "2800" } },
+        { r: 3, c: 0, v: { v: "三部", m: "三部" } },
+        { r: 3, c: 1, v: { v: 1900, m: "1900" } },
+        { r: 4, c: 0, v: { v: "最高业绩", m: "最高业绩", bl: 1 } },
+        { r: 4, c: 1, v: { v: "", m: "", bg: "#fef08a" } }
+      ]);
+    }
+
+    // 将 "B5" 转换成 { row: 4, col: 1 }
+    function parseCellCoord(cellStr) {
+      const match = cellStr.trim().toUpperCase().match(/^([A-Z])(\d+)$/);
+      if (!match) return null;
+      const col = match[1].charCodeAt(0) - 65;
+      const row = parseInt(match[2], 10) - 1;
+      if (row < 0 || col < 0) return null;
+      return { row, col, name: `${match[1]}${match[2]}` };
+    }
+
+    // 保存并发布新课程
+    function saveNewLesson() {
+      if (luckysheet.exitEditMode) luckysheet.exitEditMode();
+
+      const title = document.getElementById('t-title').value.trim();
+      const isFree = document.getElementById('t-free').value === 'true';
+      const rawContent = document.getElementById('t-content').value.trim();
+      const task = document.getElementById('t-task').value.trim();
+      const cellInput = document.getElementById('t-cell').value.trim();
+      const keyword = document.getElementById('t-keyword').value.trim().toUpperCase();
+      const expected = document.getElementById('t-expected').value.trim();
+      const hint = document.getElementById('t-hint').value.trim();
+
+      if (!title || !rawContent || !task || !cellInput || !keyword || !expected) {
+        alert("⚠️ 请把带 * 号的必填项填写完整！");
+        return;
+      }
+
+      const coord = parseCellCoord(cellInput);
+      if (!coord) {
+        alert("⚠️ 目标单元格格式不正确！请输入类似 B5、C2、D3 的坐标。");
+        return;
+      }
+
+      // 从右侧 Excel 引擎抓取老师输入的全部表格数据
+      const sheetData = luckysheet.getSheetData();
+      const extractedCelldata = [];
+      for (let r = 0; r < sheetData.length; r++) {
+        for (let c = 0; c < sheetData[r].length; c++) {
+          const cell = sheetData[r][c];
+          if (r === coord.row && c === coord.col) {
+            // 目标单元格自动设为空且标为亮黄色背景
+            extractedCelldata.push({ r, c, v: { v: "", m: "", bg: "#fef08a" } });
+          } else if (cell && (cell.v !== undefined && cell.v !== null && cell.v !== "")) {
+            extractedCelldata.push({
+              r, c,
+              v: {
+                v: cell.v,
+                m: String(cell.m || cell.v),
+                bg: r === 0 ? "#f1f5f9" : (cell.bg || null),
+                bl: r === 0 ? 1 : (cell.bl || 0)
+              }
+            });
+          }
+        }
+      }
+
+      const formattedContent = rawContent.split('\n').map(line => `<p>${line}</p>`).join('');
+
+      const newLesson = {
+        id: Date.now(),
+        title,
+        free: isFree,
+        completed: false,
+        content: formattedContent,
+        task,
+        targetCellName: coord.name,
+        targetRow: coord.row,
+        targetCol: coord.col,
+        expectedValue: expected,
+        requiredKeyword: keyword,
+        hint: hint || `请在 ${coord.name} 中使用 ${keyword} 函数完成计算。`,
+        celldata: extractedCelldata
+      };
+
+      lessons.push(newLesson);
+      saveLessonsToStorage();
+      renderTeacherManageList();
+      alert(`🎉 新课程《${title}》发布成功！\n点击顶部【🎓 返回学员模式】即可立即体验测试！`);
+    }
+
+    function renderTeacherManageList() {
+      const box = document.getElementById('teacher-lesson-manage');
+      box.innerHTML = '';
+      lessons.forEach((l, idx) => {
+        const item = document.createElement('div');
+        item.className = 'flex justify-between items-center bg-slate-50 px-2.5 py-1.5 rounded border text-xs';
+        item.innerHTML = `
+          <span class="truncate">第 ${idx + 1} 课：${l.title} (${l.free ? '免费' : 'VIP'})</span>
+          <button onclick="deleteLesson(${idx})" class="text-red-500 hover:text-red-700 font-bold ml-2">删除</button>
+        `;
+        box.appendChild(item);
+      });
+    }
+
+    function deleteLesson(idx) {
+      if (lessons.length <= 1) {
+        alert("至少需要保留 1 节课程！");
+        return;
+      }
+      if (confirm(`确定要删除《${lessons[idx].title}》吗？`)) {
+        lessons.splice(idx, 1);
+        if (currentLessonIndex >= lessons.length) currentLessonIndex = 0;
+        saveLessonsToStorage();
+        renderTeacherManageList();
+      }
+    }
+
+    // 黑科技：一键导出包含最新题库的完整独立 index.html 文件
+    function exportUpdatedHtmlFile() {
+      const cleanLessons = lessons.map((l, idx) => ({ ...l, id: idx + 1, completed: false }));
+      const newLessonsCode = `/*__LESSONS_DATA_START__*/\n    const DEFAULT_LESSONS = ${JSON.stringify(cleanLessons, null, 2)};\n    /*__LESSONS_DATA_END__*/`;
+
+      // 克隆当前网页结构并清理动态渲染的 DOM，保持导出的文件干净整洁
+      const docClone = document.documentElement.cloneNode(true);
+      docClone.querySelector('#luckysheet-container').innerHTML = '';
+      docClone.querySelector('#lesson-list').innerHTML = '';
+      docClone.querySelector('#teacher-lesson-manage').innerHTML = '';
+      docClone.querySelector('#teacher-left-panel').classList.add('hidden');
+      docClone.querySelector('#student-left-panel').classList.remove('hidden');
+
+      // 去除 Luckysheet 动态注入到 body 或 head 的临时样式节点
+      let htmlString = '<!DOCTYPE html>\n' + docClone.outerHTML;
+      htmlString = htmlString.replace(/\/\*__LESSONS_DATA_START__\*\/[\s\S]*?\/\*__LESSONS_DATA_END__\*\//, newLessonsCode);
+
+      const blob = new Blob([htmlString], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'index.html';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // ==================== 4. VIP 激活码验证逻辑 ====================
+    function openPayModal() {
+      document.getElementById('vip-error-msg').classList.add('hidden');
+      document.getElementById('pay-modal').classList.remove('hidden');
+    }
+    function closePayModal() {
+      document.getElementById('pay-modal').classList.add('hidden');
+    }
+    function verifyVipCode() {
+      const code = document.getElementById('vip-code-input').value.trim().toUpperCase();
+      const errEl = document.getElementById('vip-error-msg');
+      if (VALID_VIP_CODES.includes(code)) {
+        isVip = true;
+        localStorage.setItem(STORAGE_KEY_VIP, 'true');
+        updateVipUI();
+        closePayModal();
+        renderLessonList();
+        alert("🎉 VIP 激活码验证成功！已为您永久解锁全部高阶课程！");
+      } else {
+        errEl.innerText = "❌ 激活码无效！测试体验请输入：VIP888";
+        errEl.classList.remove('hidden');
+      }
+    }
+
+    // 启动初始化
+    window.onload = () => {
+      updateVipUI();
+      renderLessonList();
+      selectLesson(0);
+    };
+  </script>
+
+
+            
+            
+            <!-- Revision: modeled on google sheet
+            
+            <div id="luckysheetColsRowsHandleAdd_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向上增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">行</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向下增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">行</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向左增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">列</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向右增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">列</span>
+                    </div>
+                </div>
+            </div>
+            
+            -->
+
+            <!-- delete row or column
+            
+            <div id="luckysheetColsRowsHandleDel_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div id="luckysheet-delRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除选中行
+                    </div>
+                </div>
+                <div id="luckysheet-delCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除选中列
+                    </div>
+                </div>
+            </div>
+            
+            -->
+
+            <!--
+            <div id="luckysheetColsRowsHandleHid_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div id="luckysheet-hidRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        隐藏选中行
+                    </div>
+                </div>
+                <div id="luckysheet-showHidRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        显示隐藏行
+                    </div>
+                </div>
+                <div id="luckysheet-hidCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        隐藏选中列
+                    </div>
+                </div>
+                <div id="luckysheet-showHidCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        显示隐藏列
+                    </div>
+                </div>
+            </div>
+
+            -->
+
+            
+             
+            
+            
+            
+            <!-- Revision: modeled on google sheet
+            
+            <div id="luckysheetColsRowsHandleAdd_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向上增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">行</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向下增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">行</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向左增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">列</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向右增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">列</span>
+                    </div>
+                </div>
+            </div>
+            
+            -->
+
+            <!-- delete row or column
+            
+            <div id="luckysheetColsRowsHandleDel_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div id="luckysheet-delRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除选中行
+                    </div>
+                </div>
+                <div id="luckysheet-delCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除选中列
+                    </div>
+                </div>
+            </div>
+            
+            -->
+
+            <!--
+            <div id="luckysheetColsRowsHandleHid_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div id="luckysheet-hidRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        隐藏选中行
+                    </div>
+                </div>
+                <div id="luckysheet-showHidRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        显示隐藏行
+                    </div>
+                </div>
+                <div id="luckysheet-hidCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        隐藏选中列
+                    </div>
+                </div>
+                <div id="luckysheet-showHidCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        显示隐藏列
+                    </div>
+                </div>
+            </div>
+
+            -->
+
+            
+             
+            <div id="luckysheet-formula-search-c" class="luckysheet-formula-search-c" style="display: none; top: 205px; left: 915.4px;"><div data-func="VLOOKUP" class="luckysheet-formula-search-item luckysheet-formula-search-item-active"><div class="luckysheet-formula-search-func">VLOOKUP</div><div class="luckysheet-formula-search-detail">纵向查找。在范围的第一列中自上而下搜索某个键值</div></div></div><div class="luckysheet-modal-dialog-mask" id="luckysheet-modal-dialog-mask"></div><div id="luckysheet-rightclick-menu" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-mousedown-cancel" style="display: none;">
+                <div id="luckysheet-copy-btn" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel luckysheet-copy-btn" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" style="display:block;">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">复制</div>
+                </div>
+                <div id="luckysheetcopyfor" class="luckysheet-cols-menuitem luckysheet-cols-submenu luckysheet-mousedown-cancel" style="display:block;">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        复制为<span class="luckysheet-submenu-arrow iconfont luckysheet-iconfont-youjiantou" style="user-select: none;"></span>
+                    </div>
+                </div>
+                <div id="luckysheet-copy-paste" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">粘贴</div>
+                </div>
+                <div id="luckysheet-cols-rows-handleincell">
+                    <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator" style="display:block;"></div>
+                    <div id="luckysheetColsRowsHandleAdd_row" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            插入行<span class="luckysheet-submenu-arrow" style="user-select: none;"></span>
+                        </div>
+                    </div>
+                    <div id="luckysheetColsRowsHandleAdd_column" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            插入列<span class="luckysheet-submenu-arrow" style="user-select: none;"></span>
+                        </div>
+                    </div>
+                    <div id="luckysheet-delRows" class="luckysheet-cols-menuitem luckysheet-cols-submenu luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除选中行<span class="luckysheet-submenu-arrow" style="user-select: none;"></span>
+                        </div>
+                    </div>
+                    <div id="luckysheet-delCols" class="luckysheet-cols-menuitem luckysheet-cols-submenu luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除选中列<span class="luckysheet-submenu-arrow" style="user-select: none;"></span>
+                        </div>
+                    </div>
+                    <!-- cell right click remove hide button
+                    <div id="luckysheetColsRowsHandleHid" class="luckysheet-cols-menuitem luckysheet-cols-submenu luckysheet-mousedown-cancel">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            隐藏<span class="luckysheet-submenu-arrow iconfont luckysheet-iconfont-youjiantou" style="user-select: none;"></span>
+                        </div>
+                    </div>
+                    -->
+                    <div id="luckysheetCellsHandleDel" class="luckysheet-cols-menuitem luckysheet-cols-submenu luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            删除单元格<span class="luckysheet-submenu-arrow iconfont luckysheet-iconfont-youjiantou" style="user-select: none;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="luckysheet-cols-rows-add">
+                    <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div>
+                    <div id="luckysheet-top-left-add-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            向
+                            <span class="luckysheet-cols-rows-shift-left">左</span>
+                            增加
+                            <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align:center;margin-left:5px;">
+                            <span class="luckysheet-cols-rows-shift-word luckysheet-mousedown-cancel">列</span>
+                        </div>
+                    </div>
+                    <div id="luckysheet-bottom-right-add-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            向
+                            <span class="luckysheet-cols-rows-shift-right">右</span>
+                            增加
+                            <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;">
+                            <span class="luckysheet-cols-rows-shift-word luckysheet-mousedown-cancel">列</span>
+                        </div>
+                    </div>
+                    <div id="luckysheet-del-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            删除选中
+                            <span class="luckysheet-cols-rows-shift-word luckysheet-mousedown-cancel">列</span>
+                        </div>
+                    </div>
+                    <div id="luckysheet-hide-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        隐藏选中
+                        <span class="luckysheet-cols-rows-shift-word luckysheet-mousedown-cancel">列</span>
+                        </div>
+                    </div>
+                    <div id="luckysheet-show-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            显示隐藏
+                            <span class="luckysheet-cols-rows-shift-word luckysheet-mousedown-cancel">列</span>
+                        </div>
+                    </div>
+                    <div id="luckysheet-column-row-width-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            <span class="luckysheet-cols-rows-shift-word luckysheet-mousedown-cancel">列</span>
+                            <span class="luckysheet-cols-rows-shift-size luckysheet-mousedown-cancel">宽</span>
+                            <input type="number" class="luckysheet-mousedown-cancel rcsize" min="0" max="255" placeholder="数字" value="" style="width:50px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;">
+                            px
+                        </div>
+                    </div>
+                </div>
+                <div id="luckysheet-cols-rows-shift">
+                    <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator" style="display:block;"></div>
+                    <div id="luckysheetorderbyasc" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">A-Z顺序排列</div>
+                    </div>
+                    <div id="luckysheetorderbydesc" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">Z-A降序排列</div>
+                    </div>
+                </div>
+                <div id="luckysheet-cols-rows-data">
+                    <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator" style="display:block;"></div>
+                    <div id="luckysheet-delete-text" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">清除内容</div>
+                    </div>
+                    <div id="luckysheetmatrix" class="luckysheet-cols-menuitem luckysheet-cols-submenu luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                            矩阵操作选区<span class="luckysheet-submenu-arrow iconfont luckysheet-iconfont-youjiantou" style="user-select: none;"></span>
+                        </div>
+                    </div>
+                    <div id="luckysheetorderby" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">排序选区</div>
+                    </div>
+                    <div id="luckysheetfilter" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">筛选选区</div>
+                    </div>
+                    <div id="luckysheetdatavisual" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">图表生成</div>
+                    </div>
+                    <div id="luckysheetInsertImage" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">插入图片</div>
+                    </div>
+                    <div id="luckysheetInsertLink" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">插入链接</div>
+                    </div>
+                    <div id="luckysheetDataVerification" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">数据验证</div>
+                    </div>
+                    <div id="luckysheetCellFormatRightClickMenu" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;">
+                        <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">设置单元格格式</div>
+                    </div>
+                </div>
+            </div>
+            <div id="luckysheetcopyfor_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel" style="display: none;">
+                <div id="luckysheet-copy-json-head" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" class="luckysheet-cols-menuitem luckysheet-copy-btn luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">Json 首行为标题</div>
+                </div>
+                <div id="luckysheet-copy-json-nohead" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" class="luckysheet-cols-menuitem luckysheet-copy-btn luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">Json 无标题</div>
+                </div>
+                <div id="luckysheet-copy-array1" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" class="luckysheet-cols-menuitem luckysheet-copy-btn luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">一维数组</div>
+                </div>
+                <div id="luckysheet-copy-array2" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" class="luckysheet-cols-menuitem luckysheet-copy-btn luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">二维数组</div>
+                </div>
+                <div id="luckysheet-copy-arraymore-confirm" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        <span class="luckysheet-mousedown-cancel">多维数组</span>
+                        <input type="number" id="luckysheet-copy-arraymore-row" min="1" class="luckysheet-mousedown-cancel" placeholder="行" style="width:40px;height:20px;box-sizing:border-box;text-align: center;">
+                            ×
+                            <input type="number" id="luckysheet-copy-arraymore-col" min="1" class="luckysheet-mousedown-cancel" placeholder="列" style="width:40px;height:20px;box-sizing:border-box;text-align: center;">
+                    </div>
+                </div>
+                <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div>
+                <div id="luckysheet-copy-diagonal" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" class="luckysheet-cols-menuitem luckysheet-copy-btn luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">对角线</div>
+                </div>
+                <div id="luckysheet-copy-antidiagonal" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" class="luckysheet-cols-menuitem luckysheet-copy-btn luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">反对角线</div>
+                </div>
+                <div id="luckysheet-copy-diagonaloffset" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        对角偏移
+                        <input type="number" id="luckysheet-copy-diagonaloffset-value" class="luckysheet-mousedown-cancel" placeholder="偏移量" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;">
+                        列
+                    </div>
+                </div>
+                <div id="luckysheet-copy-boolvalue" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" class="luckysheet-cols-menuitem luckysheet-copy-btn luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">布尔值</div>
+                </div>
+            </div>
+            
+            <!-- Revision: modeled on google sheet
+            
+            <div id="luckysheetColsRowsHandleAdd_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向上增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">行</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向下增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">行</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向左增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">列</span>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        向右增加
+                        <input type="text" class="luckysheet-mousedown-cancel" placeholder="数字" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
+                        <span class="luckysheet-mousedown-cancel">列</span>
+                    </div>
+                </div>
+            </div>
+            
+            -->
+
+            <!-- delete row or column
+            
+            <div id="luckysheetColsRowsHandleDel_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div id="luckysheet-delRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除选中行
+                    </div>
+                </div>
+                <div id="luckysheet-delCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除选中列
+                    </div>
+                </div>
+            </div>
+            
+            -->
+
+            <!--
+            <div id="luckysheetColsRowsHandleHid_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel">
+                <div id="luckysheet-hidRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        隐藏选中行
+                    </div>
+                </div>
+                <div id="luckysheet-showHidRows" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        显示隐藏行
+                    </div>
+                </div>
+                <div id="luckysheet-hidCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        隐藏选中列
+                    </div>
+                </div>
+                <div id="luckysheet-showHidCols" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        显示隐藏列
+                    </div>
+                </div>
+            </div>
+
+            -->
+
+            <div id="luckysheetCellsHandleDel_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel" style="display: none;">
+                <div id="luckysheet-delCellsMoveLeft" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        左移
+                    </div>
+                </div>
+                <div id="luckysheet-delCellsMoveUp" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        上移
+                    </div>
+                </div>
+            </div>
+            <div id="luckysheetmatrix_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel" style="display: none;">
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        翻转
+                        <button id="luckysheet-matrix-turn-up" class="btn btn-primary luckysheet-mousedown-cancel" style="margin-left:5px;padding:2px 3px;line-height:12px;font-size:12px;">上下</button>
+                        <button id="luckysheet-matrix-turn-left" class="btn btn-primary luckysheet-mousedown-cancel" style="margin-left:5px;padding:2px 3px;line-height:12px;font-size:12px;">左右</button>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        翻转
+                        <button id="luckysheet-matrix-turn-cw" class="btn btn-primary luckysheet-mousedown-cancel" style="margin-left:5px;padding:2px 3px;line-height:12px;font-size:12px;">顺时针</button>
+                        <button id="luckysheet-matrix-turn-anticw" class="btn btn-primary luckysheet-mousedown-cancel" style="margin-left:5px;padding:2px 3px;line-height:12px;font-size:12px;">逆时针</button>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div id="luckysheet-matrix-turn-trans" class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">转置</div>
+                </div>
+                <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div>
+                <div id="luckysheet-matrix-cal-confirm" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        <div class="luckysheet-mousedown-cancel">矩阵计算</div>
+                        <div class="luckysheet-mousedown-cancel">
+                            <select id="luckysheet-matrix-cal-type" class="luckysheet-mousedown-cancel" style="height:20px;">
+                                <option value="plus">加</option>
+                                <option value="minus">减</option>
+                                <option value="multiply">乘</option>
+                                <option value="divided">除</option>
+                                <option value="power">次方</option>
+                                <option value="root">次方根</option>
+                                <option value="log">log</option>
+                            </select>
+                            <input type="number" id="luckysheet-matrix-cal-value" class="luckysheet-mousedown-cancel" placeholder="数字" value="2" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除两端0值
+                        <button id="luckysheet-matrix-delezero-row" class="btn btn-primary luckysheet-mousedown-cancel" style="margin-left:5px;padding:2px 3px;line-height:12px;font-size:12px;">按行</button>
+                        <button id="luckysheet-matrix-delezero-column" class="btn btn-primary luckysheet-mousedown-cancel" style="margin-left:5px;padding:2px 3px;line-height:12px;font-size:12px;">按列</button>
+                    </div>
+                </div>
+                <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
+                        删除重复值
+                        <button id="luckysheet-matrix-delerpt-row" class="btn btn-primary luckysheet-mousedown-cancel" style="margin-left:5px;padding:2px 3px;line-height:12px;font-size:12px;">按行</button>
+                        <button id="luckysheet-matrix-delerpt-column" class="btn btn-primary luckysheet-mousedown-cancel" style="margin-left:5px;padding:2px 3px;line-height:12px;font-size:12px;">按列</button>
+                    </div>
+                </div>
+            </div><div dir="ltr"><div class="luckysheet-input-box-index" id="luckysheet-input-box-index"></div><div id="luckysheet-input-box" spellcheck="false" aria-hidden="false" class="luckysheet-input-box"><div class="luckysheet-cell-input editable" tabindex="0" role="combobox" contenteditable="true" id="luckysheet-rich-text-editor" dir="ltr" g_editable="true" aria-autocomplete="list"></div></div></div><div class="luckysheet-cols-menu luckysheet-mousedown-cancel luckysheet-filter-menu" id="luckysheet-filter-menu" style="display: none;"><div id="luckysheet-filter-orderby-asc" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">以A-Z升序排列</div></div><div id="luckysheet-filter-orderby-desc" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"><div style="width:205px;" class="luckysheet-mousedown-cancel">以Z-A降序排列</div></div></div> <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div><div id="luckysheet-filter-orderby-color" class="luckysheet-cols-menuitem luckysheet-cols-submenu luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="position: relative;">按颜色筛选<span class="luckysheet-submenu-arrow iconfont luckysheet-iconfont-youjiantou" style="user-select: none;right: 0;"></span></div></div><div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" id="luckysheet-filter-bycondition" style="padding-top:0px;padding-bottom:0px;"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"><i class="fa fa-caret-right" aria-hidden="true"></i> 按条件过滤</div></div> <div class="luckysheet-filter-bycondition" style="display:none;"><div class="luckysheet-flat-menu-button luckysheet-mousedown-cancel" id="luckysheet-filter-selected"><span class="luckysheet-mousedown-cancel" data-value="null" data-type="0">无</span><div class="luckysheet-mousedown-cancel"><i class="fa fa-sort" aria-hidden="true"></i></div></div><div class="luckysheet-filter-selected-input"><input type="text" placeholder="输入筛选值" class="luckysheet-mousedown-cancel"></div><div class="luckysheet-filter-selected-input luckysheet-filter-selected-input2"><span>从</span><input type="text" placeholder="范围开始" class="luckysheet-mousedown-cancel"><span>到</span><input type="text" placeholder="范围结束" class="luckysheet-mousedown-cancel"></div></div> <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" id="luckysheet-filter-byvalue" style="padding-top:0px;padding-bottom:0px;"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"><i class="fa fa-caret-right" aria-hidden="true"></i> 按值过滤</div></div> <div class="luckysheet-filter-byvalue"><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel luckysheet-mousedown-filter-byvalue-btn"><span id="luckysheet-filter-byvalue-btn-all" class="luckysheet-mousedown-cancel">全选</span> - <span id="luckysheet-filter-byvalue-btn-clear" class="luckysheet-mousedown-cancel">清除</span> - <span id="luckysheet-filter-byvalue-btn-contra" class="luckysheet-mousedown-cancel">反选</span> <div><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i></div></div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="padding-left:3px; padding-right:3px;"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"><input type="text" placeholder="按照值进行筛选" class="luckysheet-mousedown-cancel" id="luckysheet-filter-byvalue-input"><div class="luckysheet-filter-byvalue-input-icon luckysheet-mousedown-cancel"><i class="fa fa-search luckysheet-mousedown-cancel" aria-hidden="true"></i></div></div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"><div id="luckysheet-filter-byvalue-select" class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"></div></div></div> <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"><div class="btn btn-primary luckysheet-mousedown-cancel" id="luckysheet-filter-confirm">确 认</div> <div class="btn btn-default luckysheet-mousedown-cancel" id="luckysheet-filter-cancel">取 消</div> <div class="btn btn-danger luckysheet-mousedown-cancel" id="luckysheet-filter-initial">清除筛选</div></div></div> </div><div style="z-index: 1004; overflow-y: auto; display: none;" class="luckysheet-filter-submenu luckysheet-cols-menu luckysheet-mousedown-cancel" id="luckysheet-filter-submenu"><div data-value="null" data-type="0" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">无</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="cellnull" data-type="0"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">单元格为空</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="cellnonull" data-type="0"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">单元格有数据</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="textinclude"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">文本包含</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="textnotinclude"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">文本不包含</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="textstart"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">文本开头为</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="textend"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">文本结尾为</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="textequal"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">文本等于</div></div>  <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div>  <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="dateequal"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">日期等于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="datelessthan"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">日期早于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="datemorethan"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">日期晚于</div></div> <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div> <div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="morethan"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">大于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="moreequalthan"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">大于等于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="lessthan"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">小于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="lessequalthan"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">小于等于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="equal"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">等于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="noequal"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">不等于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="include" data-type="2"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">介于</div></div><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-value="noinclude" data-type="2"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">不在其中</div></div> </div><div id="luckysheet-rightclick-sheet-menu" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-mousedown-cancel" style="display: none;"> 
+                <div id="luckysheetsheetconfigdelete" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;"> 
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">删除</div>
+                </div> 
+                <div id="luckysheetsheetconfigcopy" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;"> 
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">复制</div> 
+                </div> 
+                <div id="luckysheetsheetconfigrename" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;"> 
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">重命名</div> 
+                </div> 
+                <div id="luckysheetsheetconfigcolor" class="luckysheet-cols-menuitem luckysheet-cols-submenu luckysheet-mousedown-cancel" style="display:block;"> 
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel"> 
+                        更改颜色 <span class="luckysheet-submenu-arrow iconfont luckysheet-iconfont-youjiantou" style="user-select: none;"></span> 
+                    </div> 
+                </div> 
+                <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator" style="display:block;"></div> 
+                <div id="luckysheetsheetconfighide" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;"> 
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">隐藏</div> 
+                </div> 
+                <div id="luckysheetsheetconfigshow" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;"> 
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">取消隐藏</div> 
+                </div> 
+                <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator" style="display:block;"></div> 
+                <div id="luckysheetsheetconfigmoveleft" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;"> 
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">向左移</div> 
+                </div> 
+                <div id="luckysheetsheetconfigmoveright" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="display:block;"> 
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">向右移</div> 
+                </div> 
+            </div> 
+            <div id="luckysheetsheetconfigcolor_sub" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel" style="display: none;">
+                <div id="luckysheetsheetconfigcolorreset" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">重置颜色</div>
+                </div> 
+                <div class="luckysheet-mousedown-cancel"> 
+                    <div class="luckysheet-mousedown-cancel"> 
+                        <input type="text" id="luckysheetsheetconfigcolorur"> 
+                    </div> 
+                </div> 
+            </div><div id="luckysheet-icon-morebtn-div" class="luckysheet-wa-editor" style="position:absolute;top:97px; right:0px;z-index:1003;padding:5.5px;display:none;height:auto;white-space:initial;"><div class="luckysheet-toolbar-button luckysheet-inline-block" data-tips="增加小数位数" id="luckysheet-icon-fmt-decimal-increase" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block toolbar-decimal-icon" style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-decimal-increase iconfont luckysheet-iconfont-zengjiaxiaoshuwei" style="user-select: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="更多格式" id="luckysheet-icon-fmt-other" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        自动
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div id="toolbar-separator-more-format" class="luckysheet-toolbar-separator luckysheet-inline-block" style="user-select: none;">
+        </div><div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="字体" id="luckysheet-icon-font-family" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        Times New Roman
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div id="toolbar-separator-font-family" class="luckysheet-toolbar-separator luckysheet-inline-block" style="user-select: none;">
+        </div><div class="luckysheet-toolbar-select luckysheet-toolbar-zoom-combobox luckysheet-toolbar-combo-button luckysheet-inline-block" data-tips="字号大小" id="luckysheet-icon-font-size" style="user-select: none;">
+            <div class="luckysheet-toolbar-combo-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-combo-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div aria-posinset="4" aria-setsize="7" class="luckysheet-inline-block luckysheet-toolbar-combo-button-caption" style="user-select: none;">
+                        <input aria-label="字号大小" class="luckysheet-toolbar-combo-button-input luckysheet-toolbar-textinput" role="combobox" style="user-select: none;" tabindex="-1" type="text" value="10">
+                    </div>
+                    <div class="luckysheet-toolbar-combo-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div id="toolbar-separator-font-size" class="luckysheet-toolbar-separator luckysheet-inline-block" style="user-select: none;">
+        </div><div class="luckysheet-toolbar-button luckysheet-inline-block" data-tips="粗体 (Ctrl+B)" id="luckysheet-icon-bold" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-bold iconfont luckysheet-iconfont-jiacu" style="user-select: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button luckysheet-inline-block" data-tips="斜体 (Ctrl+I)" id="luckysheet-icon-italic" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-italic iconfont luckysheet-iconfont-wenbenqingxie1" style="user-select: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button luckysheet-inline-block" data-tips="删除线 (Alt+Shift+5)" id="luckysheet-icon-strikethrough" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-strikethrough iconfont luckysheet-iconfont-wenbenshanchuxian" style="user-select: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button luckysheet-inline-block" data-tips="下划线" id="luckysheet-icon-underline" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-underline iconfont luckysheet-iconfont-wenbenxiahuaxian" style="user-select: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-text-color" data-tips="文本颜色" id="luckysheet-icon-text-color" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-color-menu-button-indicator" style="border-bottom-color: rgb(0, 0, 0); user-select: none;">
+                            <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                                <div class="text-color-bar" style="background-color:#000"></div>
+                                <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-text-color iconfont luckysheet-iconfont-wenbenyanse" style="user-select: none;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="颜色选择..." id="luckysheet-icon-text-color-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div id="toolbar-separator-text-color" class="luckysheet-toolbar-separator luckysheet-inline-block" style="user-select: none;">
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-cell-color" data-tips="单元格颜色" id="luckysheet-icon-cell-color" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-color-menu-button-indicator" style="border-bottom-color: rgb(255, 255, 255); user-select: none;">
+                            <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                                <div class="text-color-bar" style="background-color:#fff"></div>
+                                <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-cell-color iconfont luckysheet-iconfont-tianchong" style="user-select: none;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="颜色选择..." id="luckysheet-icon-cell-color-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-border-all" data-tips="边框" id="luckysheet-icon-border-all" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-all iconfont luckysheet-iconfont-quanjiabiankuang" style="user-select: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="边框类型..." id="luckysheet-icon-border-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-merge-button" data-tips="合并单元格" id="luckysheet-icon-merge-button" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-merge iconfont luckysheet-iconfont-hebing" style="user-select: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="选择合并类型..." id="luckysheet-icon-merge-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div id="toolbar-separator-merge-cell" class="luckysheet-toolbar-separator luckysheet-inline-block" style="user-select: none;">
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-align" data-tips="水平对齐" id="luckysheet-icon-align" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-left iconfont luckysheet-iconfont-wenbenzuoduiqi" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="对齐方式..." id="luckysheet-icon-align-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-valign" data-tips="垂直对齐" id="luckysheet-icon-valign" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-bottom iconfont luckysheet-iconfont-dibuduiqi" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="对齐方式..." id="luckysheet-icon-valign-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-textwrap" data-tips="文本换行" id="luckysheet-icon-textwrap" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-clip iconfont luckysheet-iconfont-jieduan" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="换行方式..." id="luckysheet-icon-textwrap-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-rotation" data-tips="文本旋转" id="luckysheet-icon-rotation" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-wuxuanzhuang" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="旋转方式..." id="luckysheet-icon-rotation-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div id="toolbar-separator-text-rotate" class="luckysheet-toolbar-separator luckysheet-inline-block" style="user-select: none;">
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block" data-tips="插入图片" id="luckysheet-insertImg-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-tupian" style="user-select: none;">
+                                <input id="luckysheet-imgUpload" type="file" accept="image/*" style="display:none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block" data-tips="插入链接" id="luckysheet-insertLink-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-lianjie" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block" data-tips="图表" id="luckysheet-chart-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-tubiao" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="批注" id="luckysheet-icon-postil" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon-img-container luckysheet-toolbar-menu-button-caption luckysheet-inline-block iconfont luckysheet-iconfont-zhushi" style="user-select: none;">
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block" data-tips="数据透视表" id="luckysheet-pivot-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-shujutoushi" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div id="toolbar-separator-pivot-table" class="luckysheet-toolbar-separator luckysheet-inline-block" style="user-select: none;">
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-function" data-tips="自动求和" id="luckysheet-icon-function" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont luckysheet-iconfont-jisuan" style="user-select: none;">
+                        </div>
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        求和
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="更多函数..." id="luckysheet-icon-function-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-freezen-btn-horizontal" data-tips="冻结首行" id="luckysheet-freezen-btn-horizontal" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont luckysheet-iconfont-dongjie1" style="user-select: none;">
+                        </div>
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        冻结首行
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-right luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="更多选项..." id="luckysheet-icon-freezen-menu" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="排序和筛选" id="luckysheet-icon-autofilter" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-autofilter iconfont luckysheet-iconfont-shaixuan" style="user-select: none;">
+                        </div>
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;margin-left: 0px;margin-right: 4px;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="条件格式" id="luckysheet-icon-conditionformat" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-autofilter iconfont luckysheet-iconfont-geshitiaojian" style="user-select: none;">
+                        </div>
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block" data-tips="数据验证" id="luckysheet-dataVerification-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-shujuyanzheng" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block" data-tips="分列" id="luckysheet-splitColumn-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-wenbenfenge" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block" data-tips="截图" id="luckysheet-chart-btn-screenshot" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-jieping" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="查找替换" id="luckysheet-icon-seachmore" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-autofilter iconfont luckysheet-iconfont-sousuo" style="user-select: none;">
+                        </div>
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;margin-left: 0px;margin-right: 4px;">
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block" data-tips="保护工作表内容" id="luckysheet-icon-protection" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-biaogesuoding" style="user-select: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="luckysheet-toolbar-select luckysheet-toolbar-menu-button luckysheet-inline-block" data-tips="打印" id="luckysheet-icon-print" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-menu-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block" style="user-select: none;">
+
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-autofilter iconfont luckysheet-iconfont-dayin" style="user-select: none;">
+                        </div>
+                    </div>
+                    <div class="luckysheet-toolbar-menu-button-dropdown luckysheet-inline-block iconfont luckysheet-iconfont-xiayige" style="user-select: none;margin-left: 0px;margin-right: 4px;">
+                    </div>
+                </div>
+            </div>
+        </div></div></body></html>
