@@ -15,27 +15,29 @@
   <style>
     .luckysheet-share-logo { display: none !important; }
     #luckysheet-container { position: relative; width: 100%; height: 100%; }
+    .dragging-row { opacity: 0.4; background: #d1fae5 !important; }
+    .drag-over-row { border-top: 3px solid #059669 !important; }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 h-screen flex flex-col overflow-hidden select-none">
+<body class="bg-slate-100 text-slate-800 h-screen flex flex-col overflow-hidden select-none">
 
-  <!-- 顶部导航栏 -->
-  <header class="h-14 bg-slate-800 border-b border-slate-700 px-5 flex items-center justify-between shrink-0 z-30">
+  <!-- 顶部导航栏：经典 Excel 翠绿主题，清晰醒目 -->
+  <header class="h-14 bg-emerald-700 text-white px-5 flex items-center justify-between shrink-0 shadow z-30">
     <div class="flex items-center space-x-3">
-      <!-- 隐秘入口：1.2秒内连续点击左上角绿色XLS图标3次，唤出老师后台登录框 -->
-      <div onclick="secretLogoClick()" title="Excel 实战闯关训练营" class="bg-emerald-600 text-white font-bold px-2.5 py-1 rounded text-sm tracking-wider shadow cursor-pointer active:scale-95 transition">XLS</div>
+      <!-- 隐秘入口：1.2秒内连续点击左上角XLS图标3次，唤出老师后台登录框 -->
+      <div onclick="secretLogoClick()" title="Excel 实战闯关训练营" class="bg-white text-emerald-800 font-extrabold px-2.5 py-1 rounded text-sm tracking-wider shadow cursor-pointer active:scale-95 transition">XLS</div>
       <h1 class="text-base font-bold text-white tracking-wide">Excel 函数真操实练系统</h1>
-      <span id="vip-badge" class="hidden bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs px-2.5 py-0.5 rounded-full font-semibold">👑 VIP 正式学员</span>
-      <span id="cloud-status-badge" class="text-[11px] bg-slate-700 text-slate-400 px-2 py-0.5 rounded-full">本地模式</span>
+      <span id="vip-badge" class="hidden bg-amber-400 text-slate-900 text-xs px-2.5 py-0.5 rounded-full font-bold shadow-sm">👑 VIP 正式学员</span>
+      <span id="cloud-status-badge" class="text-[11px] bg-emerald-800 text-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-600">本地模式</span>
     </div>
 
     <div class="flex items-center space-x-3">
-      <div class="text-xs text-slate-400 hidden sm:block">通关进度：<span id="progress-text" class="text-emerald-400 font-bold">0/0</span></div>
+      <div class="text-xs text-emerald-100 hidden sm:block">通关进度：<span id="progress-text" class="text-amber-300 font-bold">0/0</span></div>
 
       <!-- 用户登录状态区 -->
       <div id="user-area" class="flex items-center space-x-2"></div>
 
-      <button id="unlock-top-btn" onclick="openVipModal()" class="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold text-xs px-3.5 py-1.5 rounded-lg shadow transition">
+      <button id="unlock-top-btn" onclick="openVipModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-xs px-3.5 py-1.5 rounded-lg shadow transition">
         🔑 激活 VIP 课程
       </button>
     </div>
@@ -44,159 +46,166 @@
   <!-- 主体区域：左教程 + 右真Excel -->
   <div class="flex-1 flex overflow-hidden relative">
 
-    <!-- 左侧：课程目录与讲义区 -->
-    <aside class="w-[430px] bg-slate-800/90 border-r border-slate-700 flex flex-col shrink-0 z-20">
-      <div class="p-3.5 border-b border-slate-700 bg-slate-900/40">
+    <!-- 左侧：课程目录与讲义区（清爽明亮经典风） -->
+    <aside class="w-[440px] bg-white border-r border-slate-300 flex flex-col shrink-0 z-20 shadow-sm">
+      <div class="p-3.5 border-b border-slate-200 bg-slate-50">
         <div class="flex items-center justify-between mb-1.5">
-          <label class="text-xs text-slate-400 font-semibold">📚 选择实操关卡：</label>
-          <span class="text-[11px] text-emerald-400">支持鼠标框选单元格</span>
+          <label class="text-xs text-slate-600 font-bold">📚 选择实操关卡：</label>
+          <span class="text-[11px] text-emerald-700 font-semibold">✓ 支持鼠标拖动框选单元格</span>
         </div>
-        <select id="lesson-select" onchange="loadLesson(parseInt(this.value))" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500"></select>
+        <select id="lesson-select" onchange="loadLesson(parseInt(this.value))" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 font-medium focus:outline-none focus:border-emerald-600 shadow-sm"></select>
       </div>
 
       <!-- 正常学习面板 -->
-      <div id="student-panel" class="p-5 flex-1 overflow-y-auto space-y-5 select-text">
+      <div id="student-panel" class="p-5 flex-1 overflow-y-auto space-y-4 select-text">
         <div>
-          <div class="flex items-center space-x-2 mb-2">
-            <span id="lesson-tag" class="inline-block bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded font-medium">第 1 关</span>
+          <div class="flex items-center space-x-2 mb-1.5">
+            <span id="lesson-tag" class="inline-block bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs px-2.5 py-0.5 rounded font-bold">第 1 关</span>
             <span id="lesson-done-tag" class="hidden bg-emerald-600 text-white text-xs px-2 py-0.5 rounded font-bold">✓ 已通关</span>
           </div>
-          <h2 id="lesson-title" class="text-xl font-bold text-white">加载中...</h2>
+          <h2 id="lesson-title" class="text-xl font-bold text-slate-900">加载中...</h2>
         </div>
 
-        <div id="lesson-content" class="text-sm text-slate-300 leading-relaxed space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-700/80"></div>
+        <div id="lesson-content" class="text-sm text-slate-700 leading-relaxed space-y-2.5 bg-slate-50 p-4 rounded-xl border border-slate-200"></div>
 
-        <div class="bg-indigo-950/60 border border-indigo-500/40 rounded-xl p-4 space-y-2">
-          <div class="text-xs font-bold text-indigo-300 uppercase tracking-wider">🎯 本关实操任务</div>
-          <p id="lesson-task" class="text-sm text-white font-medium leading-relaxed"></p>
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-1.5">
+          <div class="text-xs font-bold text-blue-800 uppercase tracking-wider">🎯 本关实操任务</div>
+          <p id="lesson-task" class="text-sm text-slate-900 font-semibold leading-relaxed"></p>
         </div>
 
-        <div class="bg-slate-900/90 border border-slate-700 rounded-xl p-3.5 text-xs text-slate-300 space-y-1.5">
-          <div class="font-bold text-amber-400">💡 真 Excel 操作小贴士：</div>
-          <p>1. 双击右侧目标单元格，输入 <code class="text-emerald-400 font-mono">=函数名(</code></p>
-          <p>2. <strong>直接用鼠标在表格里按住拖动框选区域</strong>，松开鼠标后按回车 <code class="text-emerald-400 font-mono">Enter</code> 即可！</p>
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-slate-700 space-y-1">
+          <div class="font-bold text-amber-800">💡 真 Excel 操作小贴士：</div>
+          <p>1. 双击右侧目标单元格，输入 <code class="text-emerald-700 font-bold font-mono">=函数名(</code></p>
+          <p>2. <strong>直接用鼠标在表格里按住拖动框选区域</strong>，松手后按回车 <code class="text-emerald-700 font-bold font-mono">Enter</code> 即可！</p>
         </div>
 
         <div id="feedback-box" class="hidden rounded-xl p-4 text-sm font-medium"></div>
       </div>
 
       <!-- 底部判分栏 -->
-      <div id="student-footer" class="p-4 border-t border-slate-700 bg-slate-900/70 flex items-center justify-between">
-        <button onclick="showHint()" class="text-xs text-slate-400 hover:text-amber-300 transition underline">💡 不会做？看答案提示</button>
+      <div id="student-footer" class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+        <button onclick="showHint()" class="text-xs text-slate-600 hover:text-emerald-700 font-medium transition underline">💡 不会做？看答案提示</button>
         <div class="flex space-x-2">
-          <button onclick="resetCurrentSheet()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium px-3 py-2 rounded-lg text-xs transition">
+          <button onclick="resetCurrentSheet()" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium px-3 py-2 rounded-lg text-xs transition shadow-sm">
             重置表格
           </button>
-          <button onclick="verifyAnswer()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2 rounded-lg text-sm shadow-lg shadow-emerald-600/30 transition">
+          <button onclick="verifyAnswer()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2 rounded-lg text-sm shadow transition">
             ✅ 提交检验答案
           </button>
         </div>
       </div>
 
-      <!-- ================= 老师可视化后台抽屉（支持新增、二次修改、调序、发码、用户管理、全站备份） ================= -->
-      <div id="teacher-panel" class="hidden flex-1 flex flex-col overflow-hidden bg-slate-900">
-        <!-- 顶部Tab切换 -->
-        <div class="flex border-b border-slate-700 bg-slate-800 text-xs font-bold shrink-0">
-          <button onclick="switchAdminTab('course')" id="tab-btn-course" class="flex-1 py-2.5 text-amber-400 border-b-2 border-amber-400">📝 课程编排</button>
-          <button onclick="switchAdminTab('codes')" id="tab-btn-codes" class="flex-1 py-2.5 text-slate-400 hover:text-white">🎟️ 激活码与学员</button>
-          <button onclick="switchAdminTab('settings')" id="tab-btn-settings" class="flex-1 py-2.5 text-slate-400 hover:text-white">☁️ 云库与备份</button>
-          <button onclick="closeAdminMode()" class="px-3 text-slate-400 hover:text-rose-400">✕</button>
+      <!-- ================= 老师可视化后台抽屉（清晰配色 + 醒目退出按钮 + 鼠标拖拽排序） ================= -->
+      <div id="teacher-panel" class="hidden flex-1 flex flex-col overflow-hidden bg-slate-50">
+        <!-- 顶部后台标题与醒目退出按钮 -->
+        <div class="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between shrink-0">
+          <span class="text-xs font-bold text-amber-300">🛠️ 老师管理后台</span>
+          <button onclick="closeAdminMode()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded shadow transition">
+            🚪 退出后台
+          </button>
         </div>
 
-        <!-- Tab 1: 课程管理（新增 + 编辑 + 调序） -->
+        <!-- 顶部Tab切换 -->
+        <div class="flex border-b border-slate-300 bg-white text-xs font-bold shrink-0">
+          <button onclick="switchAdminTab('course')" id="tab-btn-course" class="flex-1 py-2.5 text-emerald-700 border-b-2 border-emerald-600 bg-emerald-50/50">📝 课程编排</button>
+          <button onclick="switchAdminTab('codes')" id="tab-btn-codes" class="flex-1 py-2.5 text-slate-600 hover:text-slate-900">🎟️ 激活码与学员</button>
+          <button onclick="switchAdminTab('settings')" id="tab-btn-settings" class="flex-1 py-2.5 text-slate-600 hover:text-slate-900">☁️ 云库与备份</button>
+        </div>
+
+        <!-- Tab 1: 课程管理（新增 + 编辑 + 鼠标拖拽调序） -->
         <div id="admin-tab-course" class="p-4 flex-1 overflow-y-auto space-y-3 text-xs select-text">
-          <div class="flex items-center justify-between bg-amber-500/10 border border-amber-500/30 p-2.5 rounded-lg text-amber-200">
+          <div class="flex items-center justify-between bg-amber-50 border border-amber-300 p-2.5 rounded-lg text-amber-900">
             <span id="course-form-mode-title" class="font-bold">➕ 当前模式：新增关卡</span>
-            <button id="cancel-edit-btn" onclick="resetCourseFormToNew()" class="hidden bg-slate-700 hover:bg-slate-600 text-white px-2 py-1 rounded text-[11px]">取消编辑 / 切回新增</button>
+            <button id="cancel-edit-btn" onclick="resetCourseFormToNew()" class="hidden bg-slate-700 hover:bg-slate-600 text-white px-2.5 py-1 rounded text-[11px] font-bold">取消编辑 / 切回新增</button>
           </div>
 
           <div>
-            <label class="block text-slate-400 mb-1">1. 关卡标题：</label>
-            <input id="t-title" type="text" placeholder="例如：第五关：IF条件判断实战" class="w-full bg-slate-800 border border-slate-600 rounded px-2.5 py-1.5 text-white" />
+            <label class="block text-slate-700 font-semibold mb-1">1. 关卡标题：</label>
+            <input id="t-title" type="text" placeholder="例如：第五关：IF条件判断实战" class="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-slate-900 focus:border-emerald-600 focus:outline-none" />
           </div>
 
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block text-slate-400 mb-1">2. 收费属性：</label>
-              <select id="t-vip" class="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-white">
-                <option value="false">免费试学关卡</option>
+              <label class="block text-slate-700 font-semibold mb-1">2. 收费属性：</label>
+              <select id="t-vip" class="w-full bg-white border border-slate-300 rounded px-2 py-1.5 text-slate-900">
+                <option value="false">🆓 免费试学关卡</option>
                 <option value="true">🔒 VIP 付费专享</option>
               </select>
             </div>
             <div>
-              <label class="block text-slate-400 mb-1">3. 判分单元格坐标：</label>
-              <input id="t-cell" type="text" placeholder="如 C2 或 E5" value="C2" class="w-full bg-slate-800 border border-slate-600 rounded px-2.5 py-1.5 text-emerald-400 font-mono uppercase" />
+              <label class="block text-slate-700 font-semibold mb-1">3. 判分单元格坐标：</label>
+              <input id="t-cell" type="text" placeholder="如 C2 或 E5" value="C2" class="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-emerald-700 font-bold font-mono uppercase" />
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block text-slate-400 mb-1">4. 必含公式关键字：</label>
-              <input id="t-keyword" type="text" placeholder="如 SUM 或 IF" value="SUM" class="w-full bg-slate-800 border border-slate-600 rounded px-2.5 py-1.5 text-amber-300 font-mono uppercase" />
+              <label class="block text-slate-700 font-semibold mb-1">4. 必含公式关键字：</label>
+              <input id="t-keyword" type="text" placeholder="如 SUM 或 IF" value="SUM" class="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-amber-700 font-bold font-mono uppercase" />
             </div>
             <div>
-              <label class="block text-slate-400 mb-1">5. 正确计算结果值：</label>
-              <input id="t-expected" type="text" placeholder="如 450 或 及格" class="w-full bg-slate-800 border border-slate-600 rounded px-2.5 py-1.5 text-white" />
+              <label class="block text-slate-700 font-semibold mb-1">5. 正确计算结果值：</label>
+              <input id="t-expected" type="text" placeholder="如 450 或 及格" class="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-slate-900 font-semibold" />
             </div>
           </div>
 
           <div>
-            <label class="block text-slate-400 mb-1">6. 左侧知识点讲解（支持换行）：</label>
-            <textarea id="t-desc" rows="3" placeholder="在这里写本节课的函数讲解、语法说明..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white"></textarea>
+            <label class="block text-slate-700 font-semibold mb-1">6. 左侧知识点讲解（支持换行）：</label>
+            <textarea id="t-desc" rows="3" placeholder="在这里写本节课的函数讲解、语法说明..." class="w-full bg-white border border-slate-300 rounded p-2 text-slate-900"></textarea>
           </div>
 
           <div>
-            <label class="block text-slate-400 mb-1">7. 本关任务指令：</label>
-            <input id="t-task" type="text" placeholder="例如：请在 C2 单元格使用 IF 函数判断成绩是否及格" class="w-full bg-slate-800 border border-slate-600 rounded px-2.5 py-1.5 text-white" />
+            <label class="block text-slate-700 font-semibold mb-1">7. 本关任务指令：</label>
+            <input id="t-task" type="text" placeholder="例如：请在 C2 单元格使用 IF 函数判断成绩是否及格" class="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-slate-900" />
           </div>
 
           <div>
-            <label class="block text-slate-400 mb-1">8. 答案提示语（学员点提示时显示）：</label>
-            <input id="t-hint" type="text" placeholder="例如：在 C2 输入 =IF(B2>=60, &quot;及格&quot;, &quot;不及格&quot;)" class="w-full bg-slate-800 border border-slate-600 rounded px-2.5 py-1.5 text-white" />
+            <label class="block text-slate-700 font-semibold mb-1">8. 答案提示语（学员点提示时显示）：</label>
+            <input id="t-hint" type="text" placeholder="例如：在 C2 输入 =IF(B2>=60, &quot;及格&quot;, &quot;不及格&quot;)" class="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-slate-900" />
           </div>
 
           <div class="pt-1 flex space-x-2">
-            <button onclick="clearRightSheetForNewLesson()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-2 rounded-lg text-xs">
+            <button onclick="clearRightSheetForNewLesson()" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-2 rounded-lg text-xs font-medium shadow-sm">
               🧹 清空右侧表格
             </button>
-            <button id="save-course-btn" onclick="saveOrUpdateLesson()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-lg text-xs shadow">
+            <button id="save-course-btn" onclick="saveOrUpdateLesson()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg text-xs shadow">
               ➕ 保存并抓取右侧表格为新关卡
             </button>
           </div>
 
-          <!-- 已有课程列表（支持编辑、上移、下移、删除） -->
-          <div class="pt-3 border-t border-slate-700">
+          <!-- 已有课程列表（支持鼠标直接按住上下拖动排序 + 编辑 + 删除） -->
+          <div class="pt-3 border-t border-slate-300">
             <div class="flex items-center justify-between mb-2">
-              <span class="text-slate-400 font-bold">📋 已有题库管理（可编辑 / 调整顺序）：</span>
+              <span class="text-slate-700 font-bold">📋 已有题库（按住左侧 ☰ 可直接上下拖动排序）：</span>
             </div>
-            <div id="admin-lesson-list" class="space-y-1.5 max-h-56 overflow-y-auto pr-1"></div>
+            <div id="admin-lesson-list" class="space-y-1.5 max-h-64 overflow-y-auto pr-1"></div>
           </div>
         </div>
 
         <!-- Tab 2: 激活码池与注册学员管理 -->
         <div id="admin-tab-codes" class="hidden p-4 flex-1 overflow-y-auto space-y-4 text-xs select-text">
-          <div class="bg-slate-800 border border-slate-700 rounded-xl p-3 space-y-2.5">
+          <div class="bg-white border border-slate-300 rounded-xl p-3.5 space-y-2.5 shadow-sm">
             <div class="flex items-center justify-between">
-              <span class="font-bold text-amber-400">🎟️ 一客一码（加密保险箱激活码池）</span>
-              <span id="code-count-badge" class="bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded text-[11px]">剩余 0 个</span>
+              <span class="font-bold text-slate-800">🎟️ 一客一码（加密保险箱激活码池）</span>
+              <span id="code-count-badge" class="bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded text-[11px] font-bold">剩余 0 个</span>
             </div>
-            <p class="text-[11px] text-slate-400">激活码保存在数据库私密保险箱中，前端网页源码绝对不可见。每个激活码一旦被学员核销即自动销毁。</p>
+            <p class="text-[11px] text-slate-500">激活码保存在数据库私密保险箱中，网页源码绝对不可见。每个码被学员激活后即自动销毁。</p>
             <div class="flex space-x-2">
-              <button onclick="generateBatchVipCodes(10)" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1.5 rounded">⚡ 批量生成 10 个新码</button>
-              <button onclick="copyAllVipCodes()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded">📋 一键复制全部</button>
+              <button onclick="generateBatchVipCodes(10)" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1.5 rounded shadow-sm">⚡ 批量生成 10 个新码</button>
+              <button onclick="copyAllVipCodes()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded font-medium">📋 一键复制全部</button>
             </div>
             <div class="flex space-x-2 pt-1">
-              <input id="custom-vip-code" type="text" placeholder="或手动输入自定义码，如 VIP-202501" class="flex-1 bg-slate-900 border border-slate-600 rounded px-2 py-1 text-white uppercase font-mono" />
-              <button onclick="addCustomVipCode()" class="bg-amber-500 text-slate-950 font-bold px-3 py-1 rounded">添加</button>
+              <input id="custom-vip-code" type="text" placeholder="或手动输入自定义码，如 VIP-202501" class="flex-1 bg-slate-50 border border-slate-300 rounded px-2 py-1 text-slate-900 uppercase font-mono" />
+              <button onclick="addCustomVipCode()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded">添加</button>
             </div>
-            <div id="vip-code-list" class="max-h-36 overflow-y-auto bg-slate-900 rounded p-2 font-mono text-[11px] space-y-1 border border-slate-700"></div>
+            <div id="vip-code-list" class="max-h-36 overflow-y-auto bg-slate-50 rounded p-2 font-mono text-[11px] space-y-1 border border-slate-200"></div>
           </div>
 
           <!-- 注册学员列表 -->
-          <div class="bg-slate-800 border border-slate-700 rounded-xl p-3 space-y-2">
+          <div class="bg-white border border-slate-300 rounded-xl p-3.5 space-y-2 shadow-sm">
             <div class="flex items-center justify-between">
-              <span class="font-bold text-emerald-400">👥 已注册学员名单</span>
-              <button onclick="refreshUsersFromCloud()" class="text-[11px] text-slate-400 hover:text-white underline">🔄 刷新同步</button>
+              <span class="font-bold text-slate-800">👥 已注册学员名单</span>
+              <button onclick="refreshUsersFromCloud()" class="text-[11px] text-emerald-700 hover:underline font-semibold">🔄 刷新同步</button>
             </div>
             <div id="admin-user-list" class="space-y-1.5 max-h-52 overflow-y-auto"></div>
           </div>
@@ -205,13 +214,13 @@
         <!-- Tab 3: 云数据库、收款设置与全站防崩溃备份 -->
         <div id="admin-tab-settings" class="hidden p-4 flex-1 overflow-y-auto space-y-3 text-xs select-text">
           <!-- 全站防崩溃一键备份与恢复 -->
-          <div class="bg-emerald-950/40 border border-emerald-500/40 p-3 rounded-xl space-y-2">
-            <div class="font-bold text-emerald-300">🛡️ 全站防崩溃数据备份与恢复（强烈建议定期备份）</div>
-            <p class="text-[11px] text-slate-300 leading-relaxed">
+          <div class="bg-emerald-50 border border-emerald-300 p-3.5 rounded-xl space-y-2">
+            <div class="font-bold text-emerald-900">🛡️ 全站防崩溃数据备份与恢复（强烈建议定期备份）</div>
+            <p class="text-[11px] text-slate-600 leading-relaxed">
               一键将【所有课程 + 学员账号与VIP状态 + 剩余激活码 + 网站配置】打包下载到电脑。万一误删数据或更换数据库，上传此文件即可 1 秒恢复全站！
             </p>
             <div class="flex space-x-2 pt-1">
-              <button onclick="downloadFullBackupJson()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg shadow transition">
+              <button onclick="downloadFullBackupJson()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg shadow-sm transition">
                 📥 下载全站完整备份 (.json)
               </button>
               <label class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-lg text-center cursor-pointer transition">
@@ -221,40 +230,40 @@
             </div>
           </div>
 
-          <div class="bg-indigo-950/60 border border-indigo-500/40 p-3 rounded-xl space-y-2">
-            <div class="font-bold text-indigo-300">☁️ 免费云数据库配置（Supabase）</div>
+          <div class="bg-white border border-slate-300 p-3.5 rounded-xl space-y-2 shadow-sm">
+            <div class="font-bold text-slate-800">☁️ 免费云数据库配置（Supabase）</div>
             <div>
-              <label class="block text-slate-400 mb-0.5">Supabase Project URL：</label>
-              <input id="s-sb-url" type="text" placeholder="https://xxxx.supabase.co" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-white font-mono text-[11px]" />
+              <label class="block text-slate-600 font-semibold mb-0.5">Supabase Project URL：</label>
+              <input id="s-sb-url" type="text" placeholder="https://xxxx.supabase.co" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1.5 text-slate-900 font-mono text-[11px]" />
             </div>
             <div>
-              <label class="block text-slate-400 mb-0.5">Supabase Publishable Key (公开密钥)：</label>
-              <input id="s-sb-key" type="text" placeholder="sb_publishable_..." class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-white font-mono text-[11px]" />
+              <label class="block text-slate-600 font-semibold mb-0.5">Supabase Publishable Key (公开密钥)：</label>
+              <input id="s-sb-key" type="text" placeholder="sb_publishable_..." class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1.5 text-slate-900 font-mono text-[11px]" />
             </div>
           </div>
 
-          <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl space-y-2.5">
-            <div class="font-bold text-amber-400">💰 收款与安全密码设置</div>
+          <div class="bg-white border border-slate-300 p-3.5 rounded-xl space-y-2.5 shadow-sm">
+            <div class="font-bold text-slate-800">💰 收款与安全密码设置</div>
             <div class="grid grid-cols-2 gap-2">
               <div>
-                <label class="block text-slate-400 mb-1">修改老师后台密码：</label>
-                <input id="s-admin-pin" type="password" placeholder="不改请留空（至少4位）" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-emerald-400 font-mono" />
+                <label class="block text-slate-600 font-semibold mb-1">修改老师后台密码：</label>
+                <input id="s-admin-pin" type="password" placeholder="不改请留空（至少4位）" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1 text-emerald-700 font-mono" />
               </div>
               <div>
-                <label class="block text-slate-400 mb-1">课程售价展示文案：</label>
-                <input id="s-price" type="text" placeholder="¥99 永久解锁" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-white" />
+                <label class="block text-slate-600 font-semibold mb-1">课程售价展示文案：</label>
+                <input id="s-price" type="text" placeholder="¥99 永久解锁" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1 text-slate-900" />
               </div>
             </div>
             <div>
-              <label class="block text-slate-400 mb-1">付款提示语（引导加微信或自动发卡说明）：</label>
-              <input id="s-wechat" type="text" placeholder="扫码添加老师微信获取激活码" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1 text-white" />
+              <label class="block text-slate-600 font-semibold mb-1">付款提示语（引导加微信或自动发卡说明）：</label>
+              <input id="s-wechat" type="text" placeholder="扫码添加老师微信获取激活码" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1 text-slate-900" />
             </div>
             <div>
-              <label class="block text-slate-400 mb-1">上传二维码图片（推荐放老师微信名片码或商家码）：</label>
-              <input id="s-qr-file" type="file" accept="image/*" onchange="handleQrUpload(event)" class="w-full text-slate-300 text-[11px]" />
-              <div id="s-qr-preview-wrap" class="mt-2 hidden flex items-center space-x-3 bg-slate-900 p-2 rounded">
-                <img id="s-qr-preview" src="" class="w-14 h-14 object-contain rounded bg-white p-0.5" />
-                <button onclick="clearQrImage()" class="text-rose-400 hover:underline text-xs">移除二维码</button>
+              <label class="block text-slate-600 font-semibold mb-1">上传二维码图片（推荐放老师微信名片码或商家码）：</label>
+              <input id="s-qr-file" type="file" accept="image/*" onchange="handleQrUpload(event)" class="w-full text-slate-600 text-[11px]" />
+              <div id="s-qr-preview-wrap" class="mt-2 hidden flex items-center space-x-3 bg-slate-100 p-2 rounded border border-slate-200">
+                <img id="s-qr-preview" src="" class="w-14 h-14 object-contain rounded bg-white p-0.5 border" />
+                <button onclick="clearQrImage()" class="text-rose-600 hover:underline text-xs font-semibold">移除二维码</button>
               </div>
             </div>
             <button onclick="saveSiteSettings()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-lg shadow">
@@ -263,25 +272,28 @@
           </div>
         </div>
 
-        <!-- 底部一键导出最新 HTML -->
-        <div class="p-3 border-t border-slate-700 bg-slate-950 space-y-1.5 shrink-0">
-          <button onclick="exportUpdatedHtmlFile()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg text-xs shadow-lg transition">
-            💾 导出最新版 index.html 文件（含题库与云配置）
+        <!-- 底部一键导出最新 HTML 与退出按钮 -->
+        <div class="p-3 border-t border-slate-300 bg-white flex space-x-2 shrink-0">
+          <button onclick="exportUpdatedHtmlFile()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg text-xs shadow transition">
+            💾 导出最新版 index.html
+          </button>
+          <button onclick="closeAdminMode()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-lg text-xs transition">
+            退出后台
           </button>
         </div>
       </div>
     </aside>
 
     <!-- 右侧：真 Excel 实操区 -->
-    <main class="flex-1 flex flex-col bg-slate-100 relative overflow-hidden">
+    <main class="flex-1 flex flex-col bg-white relative overflow-hidden">
       <!-- VIP 锁屏遮罩层 -->
-      <div id="vip-lock-overlay" class="hidden absolute inset-0 bg-slate-900/90 backdrop-blur-md z-30 flex flex-col items-center justify-center p-6 text-center">
-        <div class="w-16 h-16 bg-amber-500/20 border border-amber-500/40 rounded-2xl flex items-center justify-center text-3xl mb-4">🔒</div>
+      <div id="vip-lock-overlay" class="hidden absolute inset-0 bg-slate-900/90 z-30 flex flex-col items-center justify-center p-6 text-center">
+        <div class="w-16 h-16 bg-amber-500/20 border border-amber-400 rounded-2xl flex items-center justify-center text-3xl mb-4">🔒</div>
         <h3 class="text-2xl font-bold text-white mb-2">本关为 VIP 进阶实战课程</h3>
         <p class="text-slate-300 text-sm max-w-md mb-6">
           解锁全套进阶函数（VLOOKUP、IF嵌套、SUMIFS、数据透视综合实操），在真 Excel 环境中动手通关！
         </p>
-        <button onclick="openVipModal()" class="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold px-8 py-3 rounded-xl shadow-xl transition">
+        <button onclick="openVipModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-8 py-3 rounded-xl shadow-lg transition">
           立即解锁全部关卡
         </button>
       </div>
@@ -292,28 +304,28 @@
   </div>
 
   <!-- 弹窗 1：学员注册/登录弹窗 -->
-  <div id="auth-modal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative select-text">
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
+  <div id="auth-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative select-text">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">✕</button>
       <div class="text-center mb-5">
-        <h3 id="auth-modal-title" class="text-lg font-bold text-white">🎓 学员账号登录 / 注册</h3>
-        <p class="text-slate-400 text-xs mt-1">登录后自动保存您的通关进度与 VIP 权益</p>
+        <h3 id="auth-modal-title" class="text-lg font-bold text-slate-900">🎓 学员账号登录 / 注册</h3>
+        <p class="text-slate-500 text-xs mt-1">登录后自动保存您的通关进度与 VIP 权益</p>
       </div>
       <div class="space-y-3">
         <div>
-          <label class="block text-xs text-slate-400 mb-1">学员账号（建议用手机号或微信号）：</label>
-          <input id="auth-username" type="text" placeholder="请输入手机号或用户名" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500" />
+          <label class="block text-xs text-slate-700 font-semibold mb-1">学员账号（建议用手机号或微信号）：</label>
+          <input id="auth-username" type="text" placeholder="请输入手机号或用户名" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-emerald-600" />
         </div>
         <div>
-          <label class="block text-xs text-slate-400 mb-1">登录密码：</label>
-          <input id="auth-password" type="password" placeholder="请输入密码（至少4位）" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500" />
+          <label class="block text-xs text-slate-700 font-semibold mb-1">登录密码：</label>
+          <input id="auth-password" type="password" placeholder="请输入密码（至少4位）" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-emerald-600" />
         </div>
-        <p id="auth-error" class="hidden text-xs text-rose-400"></p>
+        <p id="auth-error" class="hidden text-xs text-rose-600 font-medium"></p>
         <div class="grid grid-cols-2 gap-2 pt-2">
-          <button onclick="handleUserAuth('login')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-sm transition">
+          <button onclick="handleUserAuth('login')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-sm shadow transition">
             登录已有账号
           </button>
-          <button onclick="handleUserAuth('register')" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2.5 rounded-xl text-sm transition">
+          <button onclick="handleUserAuth('register')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 rounded-xl text-sm transition">
             注册新学员
           </button>
         </div>
@@ -322,18 +334,18 @@
   </div>
 
   <!-- 弹窗 2：付费购买与一客一码激活弹窗 -->
-  <div id="vip-modal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 shadow-2xl relative select-text">
-      <button onclick="closeVipModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
+  <div id="vip-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-2xl relative select-text">
+      <button onclick="closeVipModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">✕</button>
       <div class="text-center">
-        <span class="bg-amber-500/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-full">终身实操 VIP 会员</span>
-        <h3 class="text-xl font-bold text-white mt-3">解锁全部 Excel 闯关实操课</h3>
-        <p id="modal-price-text" class="text-emerald-400 font-bold text-base mt-1">限时特惠：¥99 永久解锁</p>
+        <span class="bg-amber-100 text-amber-800 border border-amber-300 text-xs font-bold px-3 py-1 rounded-full">终身实操 VIP 会员</span>
+        <h3 class="text-xl font-bold text-slate-900 mt-3">解锁全部 Excel 闯关实操课</h3>
+        <p id="modal-price-text" class="text-emerald-700 font-bold text-base mt-1">限时特惠：¥99 永久解锁</p>
 
         <!-- 收款二维码展示区 -->
-        <div class="my-4 bg-white p-4 rounded-xl inline-block shadow-inner">
+        <div class="my-4 bg-slate-50 p-4 rounded-xl inline-block border border-slate-200">
           <img id="modal-qr-img" src="" class="hidden w-44 h-44 object-contain mx-auto" />
-          <div id="modal-qr-placeholder" class="w-44 h-44 bg-slate-100 flex flex-col items-center justify-center text-slate-700 rounded-lg border-2 border-dashed border-slate-300 p-3">
+          <div id="modal-qr-placeholder" class="w-44 h-44 bg-white flex flex-col items-center justify-center text-slate-700 rounded-lg border-2 border-dashed border-slate-300 p-3">
             <span class="text-2xl mb-1">📱</span>
             <span class="text-xs font-bold text-center">微信 / 支付宝扫码</span>
             <span id="modal-wechat-tip" class="text-[11px] text-slate-500 mt-2 text-center">付款后联系老师领取专属激活码</span>
@@ -341,28 +353,28 @@
         </div>
 
         <div class="text-left space-y-2">
-          <label class="text-xs text-slate-300 font-medium">请输入您的专属一次性激活码：</label>
+          <label class="text-xs text-slate-700 font-bold">请输入您的专属一次性激活码：</label>
           <div class="flex space-x-2">
-            <input id="vip-code-input" type="text" placeholder="请输入激活码" class="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white uppercase font-mono focus:outline-none focus:border-amber-500" />
-            <button onclick="activateVip()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2 rounded-lg text-sm transition">
+            <input id="vip-code-input" type="text" placeholder="请输入激活码" class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 uppercase font-mono focus:outline-none focus:border-emerald-600" />
+            <button onclick="activateVip()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2 rounded-lg text-sm shadow transition">
               立即激活
             </button>
           </div>
-          <p id="vip-error" class="hidden text-xs text-rose-400 mt-1"></p>
+          <p id="vip-error" class="hidden text-xs text-rose-600 font-medium mt-1"></p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 弹窗 3：老师后台隐秘密码验证框 -->
-  <div id="admin-login-modal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-xs w-full p-5 shadow-2xl relative select-text">
-      <button onclick="closeAdminLoginModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
-      <h3 class="text-base font-bold text-white mb-1">🛠️ 老师管理后台验证</h3>
-      <p class="text-xs text-slate-400 mb-3">密码由云端加密保险箱核验：</p>
-      <input id="admin-pin-input" type="password" placeholder="请输入管理密码" onkeydown="if(event.key==='Enter') confirmAdminLogin()" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white mb-2 focus:outline-none focus:border-amber-500" />
-      <p id="admin-login-error" class="hidden text-xs text-rose-400 mb-2">密码不正确，请重试！</p>
-      <button id="admin-login-submit-btn" onclick="confirmAdminLogin()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-lg text-sm transition">
+  <div id="admin-login-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-xs w-full p-5 shadow-2xl relative select-text">
+      <button onclick="closeAdminLoginModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-700">✕</button>
+      <h3 class="text-base font-bold text-slate-900 mb-1">🛠️ 老师管理后台验证</h3>
+      <p class="text-xs text-slate-500 mb-3">密码由云端加密保险箱核验：</p>
+      <input id="admin-pin-input" type="password" placeholder="请输入管理密码" onkeydown="if(event.key==='Enter') confirmAdminLogin()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 mb-2 focus:outline-none focus:border-emerald-600" />
+      <p id="admin-login-error" class="hidden text-xs text-rose-600 font-medium mb-2">密码不正确，请重试！</p>
+      <button id="admin-login-submit-btn" onclick="confirmAdminLogin()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg text-sm shadow transition">
         进入后台
       </button>
     </div>
@@ -370,7 +382,7 @@
 
   <script>
     // =========================================================================
-    // 1. 公开站点配置（注意：老师密码和激活码已彻底移入数据库加密表，不再暴露在HTML中！）
+    // 1. 公开站点配置（密码和激活码锁在数据库加密表中，不暴露在HTML）
     // =========================================================================
     /*__SITE_CONFIG_START__*/
     let SITE_CONFIG = {
@@ -391,7 +403,7 @@
         id: 1,
         title: "第一关：SUM 自动求和（免费体验）",
         isVip: false,
-        desc: "<p>欢迎来到真 Excel 实操训练营！右侧就是真实的 Excel 工作表。</p><p class='mt-2'><strong>SUM 函数</strong>用于对一列或一行数字求和：输入 <code class='text-emerald-400'>=SUM(</code> 后，直接用鼠标拖动框选单元格即可。</p>",
+        desc: "<p>欢迎来到真 Excel 实操训练营！右侧就是真实的 Excel 工作表。</p><p class='mt-2'><strong>SUM 函数</strong>用于对一列或一行数字求和：输入 <code class='text-emerald-700 font-bold'>=SUM(</code> 后，直接用鼠标拖动框选单元格即可。</p>",
         task: "请在右侧【B5】单元格中，使用 SUM 函数求出 B2 到 B4 三个月销量的总和。",
         targetCell: "B5",
         requiredKeyword: "SUM",
@@ -414,7 +426,7 @@
         id: 2,
         title: "第二关：AVERAGE 平均值计算（免费体验）",
         isVip: false,
-        desc: "<p><strong>AVERAGE 函数</strong>用于计算一组数据的算术平均值。</p><p class='mt-2'>语法：<code class='text-emerald-400'>=AVERAGE(数据区域)</code>。</p>",
+        desc: "<p><strong>AVERAGE 函数</strong>用于计算一组数据的算术平均值。</p><p class='mt-2'>语法：<code class='text-emerald-700 font-bold'>=AVERAGE(数据区域)</code>。</p>",
         task: "请在右侧【C5】单元格中，使用 AVERAGE 函数计算 C2:C4 三位员工的平均绩效分。",
         targetCell: "C5",
         requiredKeyword: "AVERAGE",
@@ -441,7 +453,7 @@
         id: 3,
         title: "第三关：IF 条件判断实战（VIP 专享）",
         isVip: true,
-        desc: "<p><strong>IF 函数</strong>是职场最常用的逻辑函数。</p><p class='mt-2'>语法：<code class='text-emerald-400'>=IF(判断条件, 满足时返回的值, 不满足时返回的值)</code></p>",
+        desc: "<p><strong>IF 函数</strong>是职场最常用的逻辑函数。</p><p class='mt-2'>语法：<code class='text-emerald-700 font-bold'>=IF(判断条件, 满足时返回的值, 不满足时返回的值)</code></p>",
         task: "在【C2】单元格用 IF 函数判断：如果 B2 的库存小于 50，显示“需补货”，否则显示“充足”。",
         targetCell: "C2",
         requiredKeyword: "IF",
@@ -460,7 +472,7 @@
         id: 4,
         title: "第四关：VLOOKUP 跨表精确查找（VIP 专享）",
         isVip: true,
-        desc: "<p><strong>VLOOKUP 函数</strong>是 HR 与财务必考神器！</p><p class='mt-2'>语法：<code class='text-emerald-400'>=VLOOKUP(找谁, 在哪个区域找, 返回第几列, 0)</code></p>",
+        desc: "<p><strong>VLOOKUP 函数</strong>是 HR 与财务必考神器！</p><p class='mt-2'>语法：<code class='text-emerald-700 font-bold'>=VLOOKUP(找谁, 在哪个区域找, 返回第几列, 0)</code></p>",
         task: "已知左侧 A2:B4 是商品价格表。请在【E2】使用 VLOOKUP 查找 D2（机械键盘）对应的单价。",
         targetCell: "E2",
         requiredKeyword: "VLOOKUP",
@@ -485,13 +497,14 @@
     /*__LESSONS_DATA_END__*/
 
     // =========================================================================
-    // 3. 全局状态与云端加密通信层（Supabase REST + RPC 黑盒验证）
+    // 3. 全局状态与云端加密通信层（避免重复渲染卡顿）
     // =========================================================================
     let currentLessonIndex = 0;
     let isTeacherMode = false;
     let editingLessonIndex = null;
-    let sessionAdminPin = ""; // 仅在老师当前打开后台时驻留内存，绝不写入本地缓存或HTML
-    let adminVipCodePool = []; // 仅在老师通过密码验证后从云端保险箱拉取
+    let sessionAdminPin = "";
+    let adminVipCodePool = [];
+    let lastRenderedCelldataHash = ""; // 防止云同步后重复销毁重建相同表格造成卡顿
 
     let usersDB = JSON.parse(localStorage.getItem('excel_v6_users_db') || '{}');
     let currentUsername = localStorage.getItem('excel_v6_current_user') || null;
@@ -532,7 +545,6 @@
       return headers;
     }
 
-    // 公开读取（仅限 config、lessons、users）
     async function cloudGet(rowId) {
       if (!isCloudEnabled()) return null;
       try {
@@ -548,7 +560,6 @@
       }
     }
 
-    // 公开写入（数据库策略仅允许写入 id='users'）
     async function cloudSetUsers(payloadData) {
       if (!isCloudEnabled()) return false;
       try {
@@ -564,7 +575,6 @@
       }
     }
 
-    // 调用 Supabase 数据库内部加密函数 (RPC)
     async function callSupabaseRpc(fnName, params) {
       if (!isCloudEnabled()) return null;
       try {
@@ -581,15 +591,13 @@
       }
     }
 
-    // 启动时从云端同步最新数据
     async function syncAllFromCloud() {
       const badge = document.getElementById('cloud-status-badge');
       if (!isCloudEnabled()) {
         badge.innerText = "本地存储模式";
-        badge.className = "text-[11px] bg-slate-700 text-slate-400 px-2 py-0.5 rounded-full";
         return;
       }
-      badge.innerText = "☁️ 正在同步云端...";
+      badge.innerText = "☁️ 正在同步...";
       const [cloudConfig, cloudLessons, cloudUsers] = await Promise.all([
         cloudGet('config'),
         cloudGet('lessons'),
@@ -618,13 +626,14 @@
         localStorage.setItem('excel_v6_users_db', JSON.stringify(usersDB));
       }
 
-      badge.innerText = "☁️ 云数据库已加密连接";
-      badge.className = "text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full";
+      badge.innerText = "☁️ 云端已加密连接";
+      badge.className = "text-[11px] bg-emerald-900/70 text-emerald-100 border border-emerald-400/50 px-2.5 py-0.5 rounded-full";
 
       checkSingleDeviceSession();
       renderLessonSelect();
       renderUserHeader();
-      loadLesson(currentLessonIndex);
+      // 仅更新文字与锁屏状态，如果当前关卡表格内容未变则不重复销毁重建 Luckysheet
+      loadLesson(currentLessonIndex, false);
     }
 
     function saveUsersState() {
@@ -632,7 +641,6 @@
       cloudSetUsers(usersDB);
     }
 
-    // 老师后台保存数据（通过加密 RPC 校验老师密码后写入云端）
     async function saveAdminDataToCloud(options = {}) {
       localStorage.setItem('excel_v6_site_config', JSON.stringify(SITE_CONFIG));
       localStorage.setItem('excel_v6_lessons', JSON.stringify(LESSONS));
@@ -685,9 +693,9 @@
 
       if (u) {
         area.innerHTML = `
-          <div class="flex items-center space-x-2 bg-slate-900 border border-slate-700 px-3 py-1 rounded-lg text-xs">
-            <span class="text-slate-300">👤 <strong class="text-white">${currentUsername}</strong></span>
-            <button onclick="logoutUser()" class="text-rose-400 hover:underline ml-2">退出</button>
+          <div class="flex items-center space-x-2 bg-emerald-800 border border-emerald-600 px-3 py-1 rounded-lg text-xs">
+            <span class="text-emerald-100">👤 <strong class="text-white">${currentUsername}</strong></span>
+            <button onclick="logoutUser()" class="text-amber-300 hover:underline ml-2 font-semibold">退出</button>
           </div>
         `;
         if (u.isVip) {
@@ -699,7 +707,7 @@
         }
       } else {
         area.innerHTML = `
-          <button onclick="openAuthModal()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg border border-slate-600 transition">
+          <button onclick="openAuthModal()" class="bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg border border-emerald-600 transition shadow-sm">
             👤 学员登录 / 注册
           </button>
         `;
@@ -775,7 +783,7 @@
       closeAuthModal();
       renderUserHeader();
       renderLessonSelect();
-      loadLesson(currentLessonIndex);
+      loadLesson(currentLessonIndex, false);
     }
 
     function logoutUser() {
@@ -785,16 +793,18 @@
       localStorage.removeItem('excel_v6_device_token');
       renderUserHeader();
       renderLessonSelect();
-      loadLesson(currentLessonIndex);
+      loadLesson(currentLessonIndex, false);
     }
 
     // =========================================================================
-    // 5. 初始化与关卡渲染系统
+    // 5. 初始化与关卡渲染系统（极速防重绘）
     // =========================================================================
     window.addEventListener('DOMContentLoaded', () => {
+      // 清空可能残留的静态节点
+      document.getElementById('luckysheet-container').innerHTML = '';
       renderUserHeader();
       renderLessonSelect();
-      loadLesson(0);
+      loadLesson(0, true);
       syncAllFromCloud();
     });
 
@@ -812,7 +822,7 @@
       document.getElementById('progress-text').innerText = `${passedList.length}/${LESSONS.length}`;
     }
 
-    function loadLesson(index) {
+    function loadLesson(index, forceRecreateSheet = true) {
       if (index < 0 || index >= LESSONS.length) index = 0;
       currentLessonIndex = index;
       const lesson = LESSONS[index];
@@ -837,7 +847,11 @@
         lockOverlay.classList.add('hidden');
       }
 
-      initExcelSheet(lesson.celldata);
+      const newHash = JSON.stringify(lesson.celldata || []);
+      if (forceRecreateSheet || newHash !== lastRenderedCelldataHash) {
+        lastRenderedCelldataHash = newHash;
+        initExcelSheet(lesson.celldata);
+      }
     }
 
     function initExcelSheet(celldata) {
@@ -852,21 +866,21 @@
         showstatisticBar: false,
         enableAddRow: false,
         enableAddBackTop: false,
-        row: 22,
-        column: 10,
+        row: 20,
+        column: 9,
         data: [{
           name: "实操练习表",
-          color: "#10b981",
+          color: "#059669",
           status: 1,
           order: 0,
           celldata: copiedData,
-          config: { columnlen: { "0": 110, "1": 110, "2": 110, "3": 110, "4": 110 } }
+          config: { columnlen: { "0": 115, "1": 115, "2": 115, "3": 115, "4": 115 } }
         }]
       });
     }
 
     function resetCurrentSheet() {
-      loadLesson(currentLessonIndex);
+      loadLesson(currentLessonIndex, true);
     }
 
     // =========================================================================
@@ -896,7 +910,7 @@
       feedback.classList.remove('hidden');
 
       if (!cellObj || cellObj.v === undefined || cellObj.v === null || String(cellObj.v).trim() === "") {
-        feedback.className = "rounded-xl p-4 text-sm font-medium bg-rose-950/80 border border-rose-500/50 text-rose-200";
+        feedback.className = "rounded-xl p-4 text-sm font-medium bg-rose-50 border border-rose-300 text-rose-800";
         feedback.innerHTML = `❌ 检测到目标单元格 <strong>${lesson.targetCell}</strong> 为空！请在右侧表格 ${lesson.targetCell} 中输入公式后按回车。`;
         return;
       }
@@ -906,16 +920,16 @@
       const requiredKw = (lesson.requiredKeyword || "").trim().toUpperCase();
 
       if (requiredKw && (!formulaStr || !formulaStr.includes(requiredKw))) {
-        feedback.className = "rounded-xl p-4 text-sm font-medium bg-amber-950/80 border border-amber-500/50 text-amber-200";
+        feedback.className = "rounded-xl p-4 text-sm font-medium bg-amber-50 border border-amber-300 text-amber-900";
         feedback.innerHTML = `⚠️ 请勿直接手敲结果数字！系统检测到您在 <strong>${lesson.targetCell}</strong> 没有使用 <code>${requiredKw}</code> 函数公式（必须以 = 开头）。`;
         return;
       }
 
       if (actualVal == String(lesson.expectedValue).trim()) {
-        feedback.className = "rounded-xl p-4 text-sm font-medium bg-emerald-950/90 border border-emerald-500 text-emerald-200";
+        feedback.className = "rounded-xl p-4 text-sm font-medium bg-emerald-50 border border-emerald-400 text-emerald-900";
         let nextBtnHtml = "";
         if (currentLessonIndex < LESSONS.length - 1) {
-          nextBtnHtml = `<div class="mt-3"><button onclick="loadLesson(${currentLessonIndex + 1})" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-1.5 rounded-lg text-xs shadow">进入下一关 →</button></div>`;
+          nextBtnHtml = `<div class="mt-3"><button onclick="loadLesson(${currentLessonIndex + 1}, true)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-1.5 rounded-lg text-xs shadow">进入下一关 →</button></div>`;
         }
         feedback.innerHTML = `🎉 <strong>恭喜通关！</strong> 公式 <code>${cellObj.f}</code> 完全正确，计算结果为 <strong>${actualVal}</strong>！${nextBtnHtml}`;
 
@@ -928,7 +942,7 @@
         renderLessonSelect();
         document.getElementById('lesson-done-tag').classList.remove('hidden');
       } else {
-        feedback.className = "rounded-xl p-4 text-sm font-medium bg-rose-950/80 border border-rose-500/50 text-rose-200";
+        feedback.className = "rounded-xl p-4 text-sm font-medium bg-rose-50 border border-rose-300 text-rose-800";
         feedback.innerHTML = `❌ 计算结果不对哦！您当前算出的是 <strong>${actualVal}</strong>，正确结果应为 <strong>${lesson.expectedValue}</strong>。请检查框选的单元格区域是否准确。`;
       }
     }
@@ -936,7 +950,7 @@
     function showHint() {
       const lesson = LESSONS[currentLessonIndex];
       const feedback = document.getElementById('feedback-box');
-      feedback.className = "rounded-xl p-4 text-sm font-medium bg-slate-900 border border-amber-500/40 text-amber-300";
+      feedback.className = "rounded-xl p-4 text-sm font-medium bg-amber-50 border border-amber-300 text-amber-900";
       feedback.innerHTML = `💡 <strong>本关参考操作：</strong><br/>${lesson.hint}`;
     }
 
@@ -988,13 +1002,11 @@
 
       let isRedeemed = false;
       if (isCloudEnabled()) {
-        // 发往 Supabase 数据库内部黑盒核对并销毁，前端绝对看不到其它激活码
         const rpcRes = await callSupabaseRpc('redeem_vip_code', { input_code: code });
         if (rpcRes && rpcRes.ok) {
           isRedeemed = true;
         }
       } else {
-        // 离线本地测试回退
         const idx = adminVipCodePool.findIndex(c => c.toUpperCase() === code);
         if (idx !== -1) {
           adminVipCodePool.splice(idx, 1);
@@ -1009,7 +1021,7 @@
         closeVipModal();
         renderUserHeader();
         renderLessonSelect();
-        loadLesson(currentLessonIndex);
+        loadLesson(currentLessonIndex, false);
         alert(`🎉 激活成功！账号【${currentUsername}】已永久解锁全部 VIP 关卡（该激活码已自动核销作废）！`);
       } else {
         err.innerText = "❌ 激活码无效或已被他人使用过，核对无误请联系老师获取新码！";
@@ -1018,10 +1030,11 @@
     }
 
     // =========================================================================
-    // 8. 老师可视化后台（云端加密验证 + 二次修改课程 + 顺序调整 + 备份恢复）
+    // 8. 老师可视化后台（支持鼠标直接拖拽排序 + 二次编辑 + 备份恢复）
     // =========================================================================
     let logoClickCount = 0;
     let logoClickTimer = null;
+    let draggedLessonIdx = null;
 
     function secretLogoClick() {
       logoClickCount++;
@@ -1099,7 +1112,7 @@
       document.getElementById('teacher-panel').classList.add('hidden');
       document.getElementById('student-panel').classList.remove('hidden');
       document.getElementById('student-footer').classList.remove('hidden');
-      loadLesson(currentLessonIndex);
+      loadLesson(currentLessonIndex, true);
     }
 
     function switchAdminTab(tab) {
@@ -1107,27 +1120,77 @@
         document.getElementById(`admin-tab-${t}`).classList.toggle('hidden', t !== tab);
         const btn = document.getElementById(`tab-btn-${t}`);
         if (t === tab) {
-          btn.className = "flex-1 py-2.5 text-amber-400 border-b-2 border-amber-400";
+          btn.className = "flex-1 py-2.5 text-emerald-700 border-b-2 border-emerald-600 bg-emerald-50/50";
         } else {
-          btn.className = "flex-1 py-2.5 text-slate-400 hover:text-white";
+          btn.className = "flex-1 py-2.5 text-slate-600 hover:text-slate-900";
         }
       });
     }
 
-    // ---- 课程管理：新增、二次修改、上移、下移、删除 ----
+    // ---- 课程列表：支持鼠标直接按住拖拽调序 + 编辑 + 删除 ----
     function renderAdminLessonList() {
       const container = document.getElementById('admin-lesson-list');
       container.innerHTML = LESSONS.map((item, idx) => `
-        <div class="flex items-center justify-between bg-slate-800 px-2.5 py-2 rounded border ${editingLessonIndex === idx ? 'border-amber-400' : 'border-slate-700'}">
-          <span class="truncate pr-2 text-slate-200 font-medium">${idx + 1}. ${item.isVip ? '🔒' : '🆓'} ${item.title}</span>
+        <div
+          draggable="true"
+          ondragstart="handleLessonDragStart(event, ${idx})"
+          ondragover="handleLessonDragOver(event)"
+          ondragleave="handleLessonDragLeave(event)"
+          ondrop="handleLessonDrop(event, ${idx})"
+          ondragend="handleLessonDragEnd(event)"
+          class="flex items-center justify-between bg-white px-2.5 py-2 rounded-lg border shadow-sm transition cursor-grab active:cursor-grabbing ${editingLessonIndex === idx ? 'border-amber-500 bg-amber-50' : 'border-slate-300 hover:border-emerald-500'}"
+        >
+          <div class="flex items-center space-x-2 truncate pr-2">
+            <span title="按住鼠标上下拖动即可调整顺序" class="text-slate-400 hover:text-slate-700 font-bold text-sm px-1">☰</span>
+            <span class="truncate text-slate-800 font-semibold">${idx + 1}. ${item.isVip ? '🔒' : '🆓'} ${item.title}</span>
+          </div>
           <div class="flex items-center space-x-1 shrink-0">
-            <button onclick="moveLesson(${idx}, -1)" title="上移" class="px-1.5 py-0.5 bg-slate-700 hover:bg-slate-600 rounded text-slate-300">↑</button>
-            <button onclick="moveLesson(${idx}, 1)" title="下移" class="px-1.5 py-0.5 bg-slate-700 hover:bg-slate-600 rounded text-slate-300">↓</button>
-            <button onclick="startEditLesson(${idx})" class="px-2 py-0.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded">编辑</button>
-            <button onclick="deleteLesson(${idx})" class="px-1.5 py-0.5 bg-rose-900/60 hover:bg-rose-700 text-rose-200 rounded">删</button>
+            <button onclick="moveLesson(${idx}, -1)" title="上移一位" class="px-1.5 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-slate-700">↑</button>
+            <button onclick="moveLesson(${idx}, 1)" title="下移一位" class="px-1.5 py-0.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-slate-700">↓</button>
+            <button onclick="startEditLesson(${idx})" class="px-2 py-0.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded">编辑</button>
+            <button onclick="deleteLesson(${idx})" class="px-1.5 py-0.5 bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold rounded">删</button>
           </div>
         </div>
       `).join('');
+    }
+
+    function handleLessonDragStart(e, idx) {
+      draggedLessonIdx = idx;
+      e.currentTarget.classList.add('dragging-row');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleLessonDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      e.currentTarget.classList.add('drag-over-row');
+    }
+
+    function handleLessonDragLeave(e) {
+      e.currentTarget.classList.remove('drag-over-row');
+    }
+
+    async function handleLessonDrop(e, targetIdx) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over-row');
+      if (draggedLessonIdx === null || draggedLessonIdx === targetIdx) return;
+
+      const movedItem = LESSONS.splice(draggedLessonIdx, 1)[0];
+      LESSONS.splice(targetIdx, 0, movedItem);
+
+      if (editingLessonIndex === draggedLessonIdx) {
+        editingLessonIndex = targetIdx;
+      }
+      draggedLessonIdx = null;
+
+      renderLessonSelect();
+      renderAdminLessonList();
+      await saveAdminDataToCloud({ saveLessons: true });
+    }
+
+    function handleLessonDragEnd(e) {
+      e.currentTarget.classList.remove('dragging-row');
+      document.querySelectorAll('#admin-lesson-list > div').forEach(el => el.classList.remove('drag-over-row'));
     }
 
     function startEditLesson(idx) {
@@ -1277,14 +1340,14 @@
       badge.innerText = `剩余 ${adminVipCodePool.length} 个`;
 
       if (adminVipCodePool.length === 0) {
-        listEl.innerHTML = `<div class="text-slate-500 text-center py-4">暂无可用激活码，请点击上方按钮生成</div>`;
+        listEl.innerHTML = `<div class="text-slate-400 text-center py-4">暂无可用激活码，请点击上方按钮生成</div>`;
         return;
       }
 
       listEl.innerHTML = adminVipCodePool.map((code, idx) => `
-        <div class="flex items-center justify-between bg-slate-800 px-2 py-1 rounded">
-          <span class="text-emerald-400 select-all">${code}</span>
-          <button onclick="removeVipCode(${idx})" class="text-slate-500 hover:text-rose-400">✕</button>
+        <div class="flex items-center justify-between bg-white px-2.5 py-1 rounded border border-slate-200">
+          <span class="text-emerald-700 font-bold select-all">${code}</span>
+          <button onclick="removeVipCode(${idx})" class="text-slate-400 hover:text-rose-600 font-bold">✕</button>
         </div>
       `).join('');
     }
@@ -1335,18 +1398,18 @@
       const listEl = document.getElementById('admin-user-list');
       const names = Object.keys(usersDB);
       if (names.length === 0) {
-        listEl.innerHTML = `<div class="text-slate-500 text-center py-3">暂无注册学员</div>`;
+        listEl.innerHTML = `<div class="text-slate-400 text-center py-3">暂无注册学员</div>`;
         return;
       }
       listEl.innerHTML = names.map(uname => {
         const u = usersDB[uname];
         return `
-          <div class="flex items-center justify-between bg-slate-900 px-2.5 py-1.5 rounded border border-slate-700">
+          <div class="flex items-center justify-between bg-slate-50 px-2.5 py-1.5 rounded border border-slate-200">
             <div>
-              <span class="text-white font-bold">${uname}</span>
-              <span class="text-[11px] text-slate-400 ml-1">已过 ${u.passed ? u.passed.length : 0} 关</span>
+              <span class="text-slate-800 font-bold">${uname}</span>
+              <span class="text-[11px] text-slate-500 ml-1">已过 ${u.passed ? u.passed.length : 0} 关</span>
             </div>
-            <button onclick="toggleUserVipByAdmin('${uname}')" class="px-2 py-0.5 rounded text-[11px] font-bold ${u.isVip ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-700 text-slate-300'}">
+            <button onclick="toggleUserVipByAdmin('${uname}')" class="px-2 py-0.5 rounded text-[11px] font-bold ${u.isVip ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-slate-200 text-slate-700'}">
               ${u.isVip ? '👑 VIP (点击取消)' : '普通 (点此设VIP)'}
             </button>
           </div>
@@ -1452,9 +1515,9 @@
 
       await syncAllFromCloud();
       if (ok) {
-        alert("✅ 设置已保存并同步到加密云端！别忘了点击底部【💾 导出最新版 index.html 文件】备份。");
+        alert("✅ 设置已保存并同步到加密云端！别忘了点击底部【💾 导出最新版 index.html】备份。");
       } else {
-        alert("⚠️ 本地已保存，但云端写入未成功，请检查 Supabase Key 是否正确或是否已运行最新 SQL。");
+        alert("⚠️ 本地已保存，但云端写入未成功，请检查 Supabase Key 是否填写正确。");
       }
     }
 
@@ -1462,7 +1525,7 @@
     function downloadFullBackupJson() {
       const backupObj = {
         backupTime: new Date().toLocaleString(),
-        version: "6.0",
+        version: "6.1",
         SITE_CONFIG,
         LESSONS,
         usersDB,
@@ -1519,7 +1582,7 @@
           renderAdminLessonList();
           renderVipCodePool();
           renderAdminUserList();
-          loadLesson(0);
+          loadLesson(0, true);
           alert("🎉 全站数据（课程、学员账号、VIP状态、激活码池）已 100% 恢复并同步到云端！");
         } catch (err) {
           alert("❌ 读取备份文件失败：" + err.message);
@@ -1528,11 +1591,26 @@
       reader.readAsText(file);
     }
 
-    // ---- 导出最新 HTML 文件（不含密码与激活码） ----
+    // ---- 极速纯净版 HTML 导出（自动剥离 Luckysheet 运行时临时节点，杜绝文件体积膨胀） ----
     function exportUpdatedHtmlFile() {
-      let fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const cloneDoc = document.documentElement.cloneNode(true);
 
-      // 确保导出的配置绝不包含密码或激活码
+      // 1. 清空克隆节点中的 Luckysheet 临时画布与弹窗残留，保持导出的 HTML 纯净轻量
+      const sheetContainer = cloneDoc.querySelector('#luckysheet-container');
+      if (sheetContainer) sheetContainer.innerHTML = '';
+      cloneDoc.querySelectorAll('.luckysheet-cols-menu, .luckysheet-modal-dialog, .luckysheet-input-box, .luckysheet-stat-area').forEach(el => el.remove());
+
+      // 2. 将克隆节点的界面重置回学生视图初始态
+      const tp = cloneDoc.querySelector('#teacher-panel');
+      const sp = cloneDoc.querySelector('#student-panel');
+      const sf = cloneDoc.querySelector('#student-footer');
+      if (tp) tp.classList.add('hidden');
+      if (sp) sp.classList.remove('hidden');
+      if (sf) sf.classList.remove('hidden');
+
+      let fullHtml = "<!DOCTYPE html>\n" + cloneDoc.outerHTML;
+
+      // 3. 写入安全公开配置（不含密码和激活码）
       const safeExportConfig = {
         price: SITE_CONFIG.price,
         wechatTip: SITE_CONFIG.wechatTip,
@@ -1557,7 +1635,7 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      alert("✅ 最新版 index.html 已下载！\n\n您的老师密码与激活码已锁入云端加密表，导出的 HTML 中完全不含任何敏感密码，可放心上传到 GitHub 和 Netlify！");
+      alert("✅ 纯净极速版 index.html 已导出！\n文件已自动剔除临时画布冗余，加载速度飞快！");
     }
   </script>
 </body>
