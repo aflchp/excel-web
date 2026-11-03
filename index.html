@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿```html
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Excel 交互式实战训练营 - 边学边练</title>
+  <title>Excel 交互式实战训练营 - V4.0 多用户商业版</title>
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Luckysheet 全功能 Excel 引擎 -->
@@ -23,22 +24,37 @@
   <!-- 顶部导航栏 -->
   <header class="bg-[#107c41] text-white h-14 flex items-center justify-between px-6 shadow-md z-20">
     <div class="flex items-center space-x-3">
-      <!-- 秘密入口：连续点击左上角 XLS 图标 3 次即可呼出教师后台 -->
+      <!-- 秘密入口：连续点击左上角 XLS 图标 3 次即可呼出站长后台 -->
       <div onclick="secretLogoClick()" title="Excel 实战训练营" class="bg-white text-[#107c41] font-extrabold px-2 py-0.5 rounded text-sm cursor-pointer select-none active:scale-95 transition">XLS</div>
       <h1 class="font-bold text-lg tracking-wide select-none">Excel 交互式实战训练系统</h1>
       <span id="mode-badge" class="bg-green-900/60 text-green-100 text-xs px-2.5 py-0.5 rounded-full">在线实操版</span>
     </div>
     
+    <!-- 右上角：用户身份、登录/退出、VIP按钮 -->
     <div class="flex items-center space-x-3">
-      <!-- 只有在进入教师模式后才会显示“返回学员模式”按钮 -->
       <button onclick="exitTeacherMode()" id="teacher-exit-btn" class="hidden bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs px-3 py-1.5 rounded shadow transition">
-        🎓 退出后台返回学员模式
+        🎓 退出后台返回前台
       </button>
 
-      <span id="vip-badge" class="bg-slate-900/40 text-xs px-3 py-1.5 rounded-full">当前身份：免费体验学员</span>
-      <button onclick="openPayModal()" id="buy-btn" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-sm px-4 py-1.5 rounded shadow transition">
-        👑 激活全栈 VIP
-      </button>
+      <!-- 未登录状态显示 -->
+      <div id="guest-nav-box" class="flex items-center space-x-2">
+        <span class="text-xs text-green-100">当前：游客试学模式</span>
+        <button onclick="openAuthModal('login')" class="bg-white text-[#107c41] hover:bg-green-50 font-bold text-xs px-3 py-1.5 rounded shadow transition">
+          👤 学员登录 / 注册
+        </button>
+      </div>
+
+      <!-- 已登录状态显示 -->
+      <div id="user-nav-box" class="hidden flex items-center space-x-2">
+        <span id="user-name-display" class="bg-slate-900/30 text-xs px-3 py-1.5 rounded-full font-medium">👤 学员</span>
+        <span id="vip-badge" class="bg-slate-900/40 text-xs px-2.5 py-1 rounded-full">普通学员</span>
+        <button onclick="openPayModal()" id="buy-btn" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-xs px-3 py-1.5 rounded shadow transition">
+          👑 升级 VIP
+        </button>
+        <button onclick="logoutUser()" class="text-xs text-green-200 hover:text-white underline ml-1">
+          [退出账号]
+        </button>
+      </div>
     </div>
   </header>
 
@@ -51,6 +67,7 @@
       <div class="p-4 border-b border-slate-100 bg-slate-50 max-h-48 overflow-y-auto">
         <div class="flex justify-between items-center mb-2">
           <span class="text-xs font-bold text-slate-400">课程闯关目录（点击切换）</span>
+          <span id="progress-text" class="text-xs font-bold text-[#107c41]">进度：0/4</span>
         </div>
         <div id="lesson-list" class="space-y-1.5"></div>
       </div>
@@ -90,121 +107,129 @@
       </div>
     </div>
 
-    <!-- ==================== 左侧面板 B：教师可视化出题与网站设置后台 ==================== -->
-    <div id="teacher-left-panel" class="hidden w-[38%] bg-slate-50 border-r border-slate-300 flex flex-col z-10 shadow-xl">
-      <div class="p-3.5 bg-slate-800 text-white flex justify-between items-center">
-        <div>
-          <h2 class="font-bold text-sm">🛠️ 站长出题与收款设置后台</h2>
-          <p class="text-[11px] text-slate-300">修改题库或收款配置后，请点击最底部按钮导出新网站文件</p>
+    <!-- ==================== 左侧面板 B：站长全功能管理后台 ==================== -->
+    <div id="teacher-left-panel" class="hidden w-[40%] bg-slate-50 border-r border-slate-300 flex flex-col z-10 shadow-xl">
+      <!-- 后台顶部导航选项卡 -->
+      <div class="bg-slate-800 text-white p-3">
+        <div class="flex justify-between items-center mb-2.5">
+          <h2 class="font-bold text-sm">🛠️ 站长商业运营管理后台 (V4.0)</h2>
+          <button onclick="clearTeacherGrid()" class="bg-slate-700 hover:bg-slate-600 text-xs px-2 py-1 rounded border border-slate-500">清空右侧表格</button>
         </div>
-        <button onclick="clearTeacherGrid()" class="bg-slate-700 hover:bg-slate-600 text-xs px-2.5 py-1 rounded border border-slate-500">
-          清空右侧表格
-        </button>
+        <div class="grid grid-cols-3 gap-1 bg-slate-900 p-1 rounded-lg text-xs">
+          <button onclick="switchAdminTab('users')" id="adm-tab-users" class="py-1.5 rounded font-bold bg-[#107c41] text-white">👥 学员与激活码</button>
+          <button onclick="switchAdminTab('courses')" id="adm-tab-courses" class="py-1.5 rounded text-slate-300 hover:text-white">📝 课程出题管理</button>
+          <button onclick="switchAdminTab('settings')" id="adm-tab-settings" class="py-1.5 rounded text-slate-300 hover:text-white">⚙️ 收款与云设置</button>
+        </div>
       </div>
 
-      <!-- 后台主体表单 -->
-      <div class="flex-1 p-4 overflow-y-auto space-y-4 text-sm">
+      <!-- 选项卡 1：学员管理与一码一用防盗版激活码 -->
+      <div id="admin-panel-users" class="flex-1 p-4 overflow-y-auto space-y-4 text-xs">
         
-        <!-- 模块 1：新增课程 -->
-        <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-3 shadow-sm">
-          <div class="font-bold text-xs text-[#107c41] border-b pb-1.5">📝 一、添加新实操课程（先在右侧表格打字填好题目数据）</div>
-          
+        <!-- 激活码生成器（一码一用） -->
+        <div class="bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm space-y-2.5">
+          <div class="flex justify-between items-center border-b pb-1.5">
+            <span class="font-bold text-amber-800">🔑 一码一用 VIP 激活码管理（防分享盗版）</span>
+            <button onclick="generateBatchVipCodes()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2.5 py-1 rounded">
+              + 随机生成 5 个新激活码
+            </button>
+          </div>
+          <p class="text-[11px] text-slate-500">说明：每个激活码一旦被某个学员账号激活，即自动绑定该学员并变为“已使用”，其他人无法再次使用。</p>
+          <div id="admin-code-list" class="max-h-36 overflow-y-auto space-y-1"></div>
+        </div>
+
+        <!-- 注册学员列表 -->
+        <div class="bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm space-y-2.5">
+          <div class="font-bold text-slate-800 border-b pb-1.5">👥 已注册学员列表（可手动开通/取消 VIP）</div>
+          <div id="admin-user-list" class="space-y-1.5 max-h-60 overflow-y-auto"></div>
+        </div>
+      </div>
+
+      <!-- 选项卡 2：课程出题管理 -->
+      <div id="admin-panel-courses" class="hidden flex-1 p-4 overflow-y-auto space-y-4 text-xs">
+        <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-2.5 shadow-sm">
+          <div class="font-bold text-[#107c41] border-b pb-1.5">📝 添加新实操课程（先在右侧表格填好题目数据）</div>
           <div class="grid grid-cols-3 gap-2">
             <div class="col-span-2">
-              <label class="block text-xs font-bold text-slate-700 mb-1">课程标题 *</label>
-              <input id="t-title" type="text" placeholder="如：最大值 MAX 函数" class="w-full border border-slate-300 rounded px-2.5 py-1 text-xs">
+              <label class="block font-bold text-slate-700 mb-1">课程标题 *</label>
+              <input id="t-title" type="text" placeholder="如：最大值 MAX 函数" class="w-full border rounded px-2 py-1">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">是否免费 *</label>
-              <select id="t-free" class="w-full border border-slate-300 rounded px-2 py-1 text-xs bg-white">
+              <label class="block font-bold text-slate-700 mb-1">是否免费 *</label>
+              <select id="t-free" class="w-full border rounded px-2 py-1 bg-white">
                 <option value="false">🔒 VIP收费</option>
                 <option value="true">🆓 免费试学</option>
               </select>
             </div>
           </div>
-
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">知识点讲解内容（支持回车换行） *</label>
-            <textarea id="t-content" rows="2" placeholder="输入本课函数讲解和语法说明..." class="w-full border border-slate-300 rounded px-2.5 py-1 text-xs"></textarea>
+            <label class="block font-bold text-slate-700 mb-1">知识点讲解内容 *</label>
+            <textarea id="t-content" rows="2" placeholder="输入讲解说明..." class="w-full border rounded px-2 py-1"></textarea>
           </div>
-
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">本关实操任务要求 *</label>
-            <textarea id="t-task" rows="2" placeholder="如：请在黄色单元格【B5】中计算最高销售额。" class="w-full border border-slate-300 rounded px-2.5 py-1 text-xs"></textarea>
+            <label class="block font-bold text-slate-700 mb-1">本关任务要求 *</label>
+            <textarea id="t-task" rows="2" placeholder="如：请在黄色单元格【B5】中计算最高销售额。" class="w-full border rounded px-2 py-1"></textarea>
           </div>
-
           <div class="grid grid-cols-3 gap-2">
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">目标单元格 *</label>
-              <input id="t-cell" type="text" placeholder="如 B5" class="w-full border border-slate-300 rounded px-2 py-1 font-mono uppercase bg-amber-50 text-xs">
+              <label class="block font-bold text-slate-700 mb-1">目标单元格 *</label>
+              <input id="t-cell" type="text" placeholder="如 B5" class="w-full border rounded px-2 py-1 font-mono uppercase bg-amber-50">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">必用函数名 *</label>
-              <input id="t-keyword" type="text" placeholder="如 MAX" class="w-full border border-slate-300 rounded px-2 py-1 font-mono uppercase text-xs">
+              <label class="block font-bold text-slate-700 mb-1">必用函数名 *</label>
+              <input id="t-keyword" type="text" placeholder="如 MAX" class="w-full border rounded px-2 py-1 font-mono uppercase">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">正确结果 *</label>
-              <input id="t-expected" type="text" placeholder="如 2800" class="w-full border border-slate-300 rounded px-2 py-1 font-mono text-xs">
+              <label class="block font-bold text-slate-700 mb-1">正确结果 *</label>
+              <input id="t-expected" type="text" placeholder="如 2800" class="w-full border rounded px-2 py-1 font-mono">
             </div>
           </div>
-
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">答案提示 *</label>
-            <input id="t-hint" type="text" placeholder="如：双击 B5 输入 =MAX(B2:B4)" class="w-full border border-slate-300 rounded px-2.5 py-1 text-xs">
+            <label class="block font-bold text-slate-700 mb-1">答案提示 *</label>
+            <input id="t-hint" type="text" placeholder="如：双击 B5 输入 =MAX(B2:B4)" class="w-full border rounded px-2 py-1">
           </div>
-
-          <button onclick="saveNewLesson()" class="w-full bg-[#107c41] hover:bg-green-800 text-white font-bold py-2 rounded shadow transition text-xs">
+          <button onclick="saveNewLesson()" class="w-full bg-[#107c41] hover:bg-green-800 text-white font-bold py-2 rounded shadow">
             ➕ 添加这节课程到题库
           </button>
         </div>
 
-        <!-- 模块 2：已发布课程管理 -->
         <div class="bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm">
-          <div class="font-bold text-xs text-slate-700 mb-2">📚 二、已发布的课程列表（共 <span id="course-count">4</span> 节）</div>
-          <div id="teacher-lesson-manage" class="space-y-1.5 max-h-36 overflow-y-auto"></div>
+          <div class="font-bold text-slate-700 mb-2">📚 已发布的课程列表</div>
+          <div id="teacher-lesson-manage" class="space-y-1.5 max-h-40 overflow-y-auto"></div>
         </div>
+      </div>
 
-        <!-- 模块 3：网站密码、价格、收款码与激活码设置 -->
-        <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-2.5 shadow-sm">
-          <div class="font-bold text-xs text-amber-700 border-b pb-1.5">⚙️ 三、后台密码与 VIP 收款变现设置</div>
-          
+      <!-- 选项卡 3：收款与密码设置 -->
+      <div id="admin-panel-settings" class="hidden flex-1 p-4 overflow-y-auto space-y-4 text-xs">
+        <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-3 shadow-sm">
+          <div class="font-bold text-slate-800 border-b pb-1.5">⚙️ 网站密码与收款二维码设置</div>
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">教师后台管理密码</label>
-              <input id="cfg-pin" type="text" class="w-full border border-slate-300 rounded px-2 py-1 text-xs font-mono">
+              <label class="block font-bold text-slate-700 mb-1">站长后台管理密码</label>
+              <input id="cfg-pin" type="text" class="w-full border rounded px-2 py-1 font-mono">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">VIP 售价显示 (元)</label>
-              <input id="cfg-price" type="text" class="w-full border border-slate-300 rounded px-2 py-1 text-xs font-mono">
+              <label class="block font-bold text-slate-700 mb-1">VIP 售价显示 (元)</label>
+              <input id="cfg-price" type="text" class="w-full border rounded px-2 py-1 font-mono">
             </div>
           </div>
-
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">VIP 有效激活码（多个激活码用英文逗号隔开）</label>
-            <input id="cfg-codes" type="text" class="w-full border border-slate-300 rounded px-2 py-1 text-xs font-mono uppercase">
+            <label class="block font-bold text-slate-700 mb-1">扫码付款引导语（写上你的微信号）</label>
+            <input id="cfg-desc" type="text" class="w-full border rounded px-2 py-1">
           </div>
-
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">扫码付款引导语（写上你的微信号，方便学员领激活码）</label>
-            <input id="cfg-desc" type="text" class="w-full border border-slate-300 rounded px-2 py-1 text-xs">
+            <label class="block font-bold text-slate-700 mb-1">上传你的微信/支付宝收款码图片：</label>
+            <input type="file" accept="image/*" onchange="handleQrUpload(event)" class="text-slate-600">
           </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">上传你的微信/支付宝收款二维码图片（自动压缩内嵌）：</label>
-            <input type="file" accept="image/*" onchange="handleQrUpload(event)" class="text-xs text-slate-600">
-          </div>
-
-          <button onclick="saveSiteConfig()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-1.5 rounded text-xs transition">
-            ✓ 保存上方收款与密码设置
+          <button onclick="saveSiteConfig()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 rounded">
+            ✓ 保存上方设置
           </button>
         </div>
-
       </div>
 
       <!-- 底部一键打包导出按钮 -->
       <div class="p-3.5 border-t border-slate-300 bg-white">
-        <button onclick="exportUpdatedHtmlFile()" class="w-full bg-slate-900 hover:bg-black text-amber-300 font-bold py-2.5 rounded-lg shadow-lg transition text-xs flex items-center justify-center space-x-1">
-          <span>💾 导出包含最新题库与设置的正式版 index.html</span>
+        <button onclick="exportUpdatedHtmlFile()" class="w-full bg-slate-900 hover:bg-black text-amber-300 font-bold py-2.5 rounded-lg shadow-lg transition text-xs">
+          💾 导出包含最新题库、激活码与设置的 index.html
         </button>
       </div>
     </div>
@@ -216,31 +241,55 @@
 
   </div>
 
-  <!-- 1. 付费与 VIP 激活码解锁弹窗（已去掉所有测试提示） -->
+  <!-- 弹窗 1：学员注册与登录弹窗 -->
+  <div id="auth-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 relative">
+      <button onclick="closeAuthModal()" class="absolute top-3 right-4 text-slate-400 hover:text-slate-700 text-xl">&times;</button>
+      
+      <div class="flex border-b border-slate-200 mb-4">
+        <button onclick="switchAuthTab('login')" id="tab-login-btn" class="flex-1 pb-2 font-bold text-sm border-b-2 border-[#107c41] text-[#107c41]">学员登录</button>
+        <button onclick="switchAuthTab('register')" id="tab-reg-btn" class="flex-1 pb-2 font-bold text-sm text-slate-400">新学员注册</button>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">手机号 / 学员账号</label>
+          <input id="auth-username" type="text" placeholder="请输入手机号或自定义账号" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-green-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">登录密码</label>
+          <input id="auth-password" type="password" placeholder="请输入密码" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-green-600" onkeydown="if(event.key==='Enter') submitAuth()">
+        </div>
+        <p id="auth-error-msg" class="text-xs text-red-600 hidden"></p>
+        <button onclick="submitAuth()" id="auth-submit-btn" class="w-full bg-[#107c41] hover:bg-green-800 text-white font-bold py-2.5 rounded-lg text-sm shadow transition">
+          立即登录
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 弹窗 2：VIP 付费与激活码绑定弹窗 -->
   <div id="pay-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
     <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 text-center relative">
       <button onclick="closePayModal()" class="absolute top-3 right-4 text-slate-400 hover:text-slate-700 text-xl">&times;</button>
       <div class="text-4xl mb-1">👑</div>
       <h3 class="text-xl font-bold text-slate-800">解锁全部高阶 Excel 实战课程</h3>
-      <p class="text-xs text-slate-500 mt-1">一次激活，永久解锁全部职场核心实操关卡</p>
+      <p class="text-xs text-slate-500 mt-1">激活后将永久绑定至您的个人学员账号</p>
       
       <div class="my-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
         <div class="text-3xl font-extrabold text-[#107c41]">¥ <span id="modal-price">99.00</span> <span class="text-sm font-normal text-slate-400 line-through">¥299</span></div>
-        
-        <!-- 收款二维码展示区 -->
         <div id="modal-qr-box" class="mt-3 w-36 h-36 mx-auto bg-white border p-2 flex items-center justify-center text-xs text-slate-500 leading-relaxed overflow-hidden rounded">
           扫码付款后联系老师<br>获取专属【VIP激活码】
         </div>
-        <p id="modal-pay-desc" class="text-xs text-slate-600 font-medium mt-2">添加老师微信获取激活码</p>
+        <p id="modal-pay-desc" class="text-xs text-slate-600 font-medium mt-2">添加老师微信领取专属激活码</p>
       </div>
 
-      <!-- 激活码输入框（不暴露任何测试码） -->
       <div class="text-left">
-        <label class="block text-xs font-bold text-slate-700 mb-1">🔑 请输入您的专属 VIP 激活码：</label>
+        <label class="block text-xs font-bold text-slate-700 mb-1">🔑 请输入您的专属 VIP 激活码（一码一用）：</label>
         <div class="flex space-x-2">
           <input id="vip-code-input" type="text" placeholder="请输入激活码" class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm font-mono uppercase focus:outline-none focus:border-green-600">
           <button onclick="verifyVipCode()" class="bg-[#107c41] hover:bg-green-800 text-white font-bold px-4 py-2 rounded-lg text-sm transition">
-            立即激活
+            绑定激活
           </button>
         </div>
         <p id="vip-error-msg" class="text-xs text-red-600 mt-1 hidden"></p>
@@ -248,12 +297,12 @@
     </div>
   </div>
 
-  <!-- 2. 隐藏式管理员密码登录弹窗（密码用黑点遮挡，无默认密码提示） -->
+  <!-- 弹窗 3：站长后台加密验证弹窗 -->
   <div id="admin-login-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
     <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 relative">
       <button onclick="closeAdminLogin()" class="absolute top-3 right-4 text-slate-400 hover:text-slate-700 text-xl">&times;</button>
       <h3 class="text-base font-bold text-slate-800 mb-1">🔒 站长管理后台验证</h3>
-      <p class="text-xs text-slate-500 mb-4">请输入管理员密码进入出题与设置工作台</p>
+      <p class="text-xs text-slate-500 mb-4">请输入管理员密码进入后台</p>
       <input id="admin-pin-input" type="password" placeholder="请输入管理密码" 
         class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm mb-3 focus:outline-none focus:border-green-600"
         onkeydown="if(event.key==='Enter') confirmAdminLogin()">
@@ -265,28 +314,35 @@
   </div>
 
   <script id="main-app-script">
-    // ==================== 1. 站点配置与题库数据（支持一键打包导出） ====================
-    const STORAGE_KEY_LESSONS = 'excel_train_lessons_v31';
-    const STORAGE_KEY_CONFIG = 'excel_train_config_v31';
-    const STORAGE_KEY_VIP = 'excel_train_vip_v31';
+    // ==================== 1. 核心数据库结构（多用户隔离 + 一码一用） ====================
+    const STORAGE_KEY_LESSONS = 'excel_v4_lessons';
+    const STORAGE_KEY_CONFIG  = 'excel_v4_config';
+    const STORAGE_KEY_USERS   = 'excel_v4_users';     // 存储所有注册学员账号与各自进度
+    const STORAGE_KEY_SESSION = 'excel_v4_session';   // 当前登录的学员账号
 
     /*__SITE_CONFIG_START__*/
     const DEFAULT_SITE_CONFIG = {
       teacherPin: "8888",
       vipPrice: "99.00",
-      vipCodes: ["VIP888", "EXCEL999", "VIP2025"],
-      payDesc: "付款后请添加老师微信：ExcelTeacher 领取激活码",
-      qrImageData: ""
+      payDesc: "付款后请添加老师微信：ExcelTeacher 领取专属激活码",
+      qrImageData: "",
+      // 一码一用激活码库：usedBy 为 null 表示未使用，一旦使用即记录绑定的学员账号
+      vipCodePool: [
+        { code: "VIP-8801", usedBy: null },
+        { code: "VIP-8802", usedBy: null },
+        { code: "VIP-8803", usedBy: null },
+        { code: "VIP-8804", usedBy: null },
+        { code: "VIP-8805", usedBy: null }
+      ]
     };
     /*__SITE_CONFIG_END__*/
 
     /*__LESSONS_DATA_START__*/
     const DEFAULT_LESSONS = [
       {
-        id: 1,
+        id: 101,
         title: "快速求和：SUM 函数",
         free: true,
-        completed: false,
         content: `<p>在真实 Excel 中，输入公式时不需要手敲单元格坐标，直接用鼠标框选即可！</p><p><b>操作步骤：</b>双击右侧黄色的 <b>B5</b> 单元格，输入 <code>=SUM(</code> ，然后用鼠标按住 <b>B2</b> 拖到 <b>B4</b>，按回车键完成计算。</p>`,
         task: "在黄色单元格【B5】中，使用 SUM 函数计算出 1~3 月销售额总和。",
         targetCellName: "B5",
@@ -309,10 +365,9 @@
         ]
       },
       {
-        id: 2,
+        id: 102,
         title: "计算均值：AVERAGE 函数",
         free: true,
-        completed: false,
         content: `<p>学会了求和，计算平均值也是同样的操作方式！</p><p><b>语法格式：</b><code>=AVERAGE(起始格:结束格)</code></p>`,
         task: "在黄色单元格【B5】中，使用 AVERAGE 函数计算 3 位员工的平均绩效得分。",
         targetCellName: "B5",
@@ -335,10 +390,9 @@
         ]
       },
       {
-        id: 3,
+        id: 103,
         title: "逻辑判断：IF 条件函数",
         free: false,
-        completed: false,
         content: `<p><b>IF 函数</b>可以根据条件自动输出不同的文字结果。</p><p><b>语法格式：</b><code>=IF(条件, "达标", "不达标")</code></p>`,
         task: "在黄色单元格【C2】中，使用 IF 函数判断 B2 是否大于等于 60，若是则显示“达标”，否则显示“不达标”。",
         targetCellName: "C2",
@@ -360,10 +414,9 @@
         ]
       },
       {
-        id: 4,
+        id: 104,
         title: "查找之王：VLOOKUP 函数",
         free: false,
-        completed: false,
         content: `<p><b>VLOOKUP</b> 可以直接用鼠标点选查找值和查找区域！</p><p><b>语法格式：</b><code>=VLOOKUP(找谁, 区域, 第几列, 0)</code></p>`,
         task: "已知 D2 是“李四”，请在黄色单元格【D3】中用 VLOOKUP 在 A1:B4 区域查找他的基本工资（第2列，精确匹配填0）。",
         targetCellName: "D3",
@@ -391,94 +444,206 @@
 
     let siteConfig = JSON.parse(localStorage.getItem(STORAGE_KEY_CONFIG)) || DEFAULT_SITE_CONFIG;
     let lessons = JSON.parse(localStorage.getItem(STORAGE_KEY_LESSONS)) || DEFAULT_LESSONS;
-    let isVip = localStorage.getItem(STORAGE_KEY_VIP) === 'true';
+    // users 结构: { "138001": { username: "138001", password: "123", isVip: false, completedIds: [101] } }
+    let usersDB = JSON.parse(localStorage.getItem(STORAGE_KEY_USERS)) || {};
+    let currentUsername = localStorage.getItem(STORAGE_KEY_SESSION) || null;
+    
     let isTeacherMode = false;
     let currentLessonIndex = 0;
+    let authMode = 'login';
 
-    function saveAllToStorage() {
-      localStorage.setItem(STORAGE_KEY_LESSONS, JSON.stringify(lessons));
+    function saveAllData() {
       localStorage.setItem(STORAGE_KEY_CONFIG, JSON.stringify(siteConfig));
-    }
-
-    // ==================== 2. 秘密入口：连点 3 次左上角 XLS 图标呼出后台 ====================
-    let logoClickCount = 0;
-    let logoClickTimer = null;
-
-    function secretLogoClick() {
-      if (isTeacherMode) return;
-      logoClickCount++;
-      clearTimeout(logoClickTimer);
-      if (logoClickCount >= 3) {
-        logoClickCount = 0;
-        openAdminLogin();
+      localStorage.setItem(STORAGE_KEY_LESSONS, JSON.stringify(lessons));
+      localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(usersDB));
+      if (currentUsername) {
+        localStorage.setItem(STORAGE_KEY_SESSION, currentUsername);
       } else {
-        logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1200);
+        localStorage.removeItem(STORAGE_KEY_SESSION);
       }
     }
 
-    function openAdminLogin() {
-      document.getElementById('admin-pin-input').value = '';
-      document.getElementById('admin-login-err').classList.add('hidden');
-      document.getElementById('admin-login-modal').classList.remove('hidden');
-      setTimeout(() => document.getElementById('admin-pin-input').focus(), 100);
+    // 获取当前登录的用户对象（未登录返回 null）
+    function getCurrentUser() {
+      if (!currentUsername || !usersDB[currentUsername]) return null;
+      return usersDB[currentUsername];
     }
 
-    function closeAdminLogin() {
-      document.getElementById('admin-login-modal').classList.add('hidden');
+    // 判断当前用户是否是 VIP
+    function isCurrentUserVip() {
+      const u = getCurrentUser();
+      return u ? u.isVip : false;
     }
 
-    function confirmAdminLogin() {
-      const inputPin = document.getElementById('admin-pin-input').value.trim();
-      if (inputPin === siteConfig.teacherPin) {
-        closeAdminLogin();
-        enterTeacherMode();
+    // 判断当前用户是否已通关某节课
+    function isLessonCompletedByUser(lessonId) {
+      const u = getCurrentUser();
+      return u && Array.isArray(u.completedIds) ? u.completedIds.includes(lessonId) : false;
+    }
+
+    // ==================== 2. 学员注册、登录、退出系统 ====================
+    function openAuthModal(mode = 'login') {
+      switchAuthTab(mode);
+      document.getElementById('auth-username').value = '';
+      document.getElementById('auth-password').value = '';
+      document.getElementById('auth-error-msg').classList.add('hidden');
+      document.getElementById('auth-modal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('auth-username').focus(), 100);
+    }
+
+    function closeAuthModal() {
+      document.getElementById('auth-modal').classList.add('hidden');
+    }
+
+    function switchAuthTab(mode) {
+      authMode = mode;
+      const loginBtn = document.getElementById('tab-login-btn');
+      const regBtn = document.getElementById('tab-reg-btn');
+      const submitBtn = document.getElementById('auth-submit-btn');
+      document.getElementById('auth-error-msg').classList.add('hidden');
+
+      if (mode === 'login') {
+        loginBtn.className = 'flex-1 pb-2 font-bold text-sm border-b-2 border-[#107c41] text-[#107c41]';
+        regBtn.className = 'flex-1 pb-2 font-bold text-sm text-slate-400';
+        submitBtn.innerText = '立即登录';
       } else {
-        document.getElementById('admin-login-err').classList.remove('hidden');
+        regBtn.className = 'flex-1 pb-2 font-bold text-sm border-b-2 border-[#107c41] text-[#107c41]';
+        loginBtn.className = 'flex-1 pb-2 font-bold text-sm text-slate-400';
+        submitBtn.innerText = '注册并自动登录';
       }
     }
 
-    // ==================== 3. 学员端核心逻辑 ====================
-    function applySiteConfigToUI() {
+    function submitAuth() {
+      const uname = document.getElementById('auth-username').value.trim();
+      const pwd = document.getElementById('auth-password').value.trim();
+      const errEl = document.getElementById('auth-error-msg');
+
+      if (!uname || !pwd) {
+        errEl.innerText = "⚠️ 请输入账号和密码！";
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      if (authMode === 'register') {
+        if (usersDB[uname]) {
+          errEl.innerText = "❌ 该账号已被注册，请直接点击上方【学员登录】！";
+          errEl.classList.remove('hidden');
+          return;
+        }
+        usersDB[uname] = {
+          username: uname,
+          password: pwd,
+          isVip: false,
+          completedIds: [],
+          createdAt: new Date().toLocaleDateString()
+        };
+        currentUsername = uname;
+        saveAllData();
+        closeAuthModal();
+        refreshUserUI();
+        alert(`🎉 欢迎你，${uname}！账号注册成功，你的学习进度将自动保存在该账号下。`);
+      } else {
+        const user = usersDB[uname];
+        if (!user || user.password !== pwd) {
+          errEl.innerText = "❌ 账号不存在或密码错误！如果是新学员请先点击【新学员注册】。";
+          errEl.classList.remove('hidden');
+          return;
+        }
+        currentUsername = uname;
+        saveAllData();
+        closeAuthModal();
+        refreshUserUI();
+      }
+    }
+
+    function logoutUser() {
+      if (confirm("确定要退出当前学员账号吗？")) {
+        currentUsername = null;
+        saveAllData();
+        currentLessonIndex = 0;
+        refreshUserUI();
+        selectLesson(0);
+      }
+    }
+
+    // 根据当前登录的不同用户，刷新顶部栏和左侧课程通关状态
+    function refreshUserUI() {
+      const user = getCurrentUser();
+      const guestBox = document.getElementById('guest-nav-box');
+      const userBox = document.getElementById('user-nav-box');
+
       document.getElementById('modal-price').innerText = siteConfig.vipPrice;
       document.getElementById('modal-pay-desc').innerText = siteConfig.payDesc;
-      const qrBox = document.getElementById('modal-qr-box');
       if (siteConfig.qrImageData) {
-        qrBox.innerHTML = `<img src="${siteConfig.qrImageData}" class="w-full h-full object-contain" alt="收款码" />`;
+        document.getElementById('modal-qr-box').innerHTML = `<img src="${siteConfig.qrImageData}" class="w-full h-full object-contain" />`;
       }
-      if (isVip) {
-        document.getElementById('vip-badge').innerText = '👑 尊贵的全栈 VIP 会员';
-        document.getElementById('vip-badge').className = 'bg-amber-400 text-slate-900 font-bold text-xs px-3 py-1.5 rounded-full';
-        document.getElementById('buy-btn').classList.add('hidden');
+
+      if (!user) {
+        guestBox.classList.remove('hidden');
+        userBox.classList.add('hidden');
+      } else {
+        guestBox.classList.add('hidden');
+        userBox.classList.remove('hidden');
+        document.getElementById('user-name-display').innerText = `👤 ${user.username}`;
+        
+        const vipBadge = document.getElementById('vip-badge');
+        const buyBtn = document.getElementById('buy-btn');
+        if (user.isVip) {
+          vipBadge.innerText = '👑 VIP 会员';
+          vipBadge.className = 'bg-amber-400 text-slate-900 font-bold text-xs px-2.5 py-1 rounded-full';
+          buyBtn.classList.add('hidden');
+        } else {
+          vipBadge.innerText = '免费体验学员';
+          vipBadge.className = 'bg-slate-900/40 text-xs px-2.5 py-1 rounded-full';
+          buyBtn.classList.remove('hidden');
+        }
       }
+      renderLessonList();
     }
 
+    // ==================== 3. 课程渲染与判题引擎 ====================
     function renderLessonList() {
       const container = document.getElementById('lesson-list');
       container.innerHTML = '';
+      const isVip = isCurrentUserVip();
+      let completedCount = 0;
+
       lessons.forEach((lesson, idx) => {
         const isLocked = !lesson.free && !isVip;
+        const isDone = isLessonCompletedByUser(lesson.id);
+        if (isDone) completedCount++;
+
         const activeClass = idx === currentLessonIndex ? 'bg-green-100 border-green-500 text-green-900 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100';
-        
         const btn = document.createElement('div');
         btn.className = `px-3 py-2 rounded border text-xs flex justify-between items-center cursor-pointer transition ${activeClass}`;
         btn.onclick = () => selectLesson(idx);
         
-        let badge = lesson.completed 
+        let badge = isDone 
           ? '<span class="bg-green-600 text-white px-2 py-0.5 rounded">✓ 已通关</span>'
           : (isLocked ? '<span class="bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded">🔒 VIP</span>' : '<span class="bg-slate-200 text-slate-600 px-2 py-0.5 rounded">免费</span>');
 
         btn.innerHTML = `<span>第 ${idx + 1} 课：${lesson.title}</span> ${badge}`;
         container.appendChild(btn);
       });
+
+      document.getElementById('progress-text').innerText = `通关进度：${completedCount}/${lessons.length}`;
     }
 
     function selectLesson(index) {
       const lesson = lessons[index];
       if (!lesson) return;
-      if (!lesson.free && !isVip) {
+
+      // 如果点击 VIP 课程但未登录或不是 VIP
+      if (!lesson.free && !isCurrentUserVip()) {
+        if (!getCurrentUser()) {
+          alert("🔒 该课程为 VIP 专享课程，请先登录或注册您的学员账号！");
+          openAuthModal('login');
+          return;
+        }
         openPayModal();
         return;
       }
+
       currentLessonIndex = index;
       renderLessonList();
       
@@ -508,9 +673,7 @@
           name: "实操练习表",
           status: 1,
           celldata: initialCells,
-          config: {
-            columnlen: { "0": 110, "1": 120, "2": 120, "3": 120, "4": 110 }
-          }
+          config: { columnlen: { "0": 110, "1": 120, "2": 120, "3": 120, "4": 110 } }
         }]
       });
     }
@@ -535,17 +698,24 @@
         return;
       }
 
-      const upperFormula = actualFormula.toUpperCase();
-      if (!upperFormula.includes(lesson.requiredKeyword.toUpperCase())) {
+      if (!actualFormula.toUpperCase().includes(lesson.requiredKeyword.toUpperCase())) {
         showFeedback(false, `❌ 你的公式是 ${actualFormula}，但本关要求必须使用【${lesson.requiredKeyword}】函数！`);
         return;
       }
 
       if (String(actualValue).trim() === String(lesson.expectedValue).trim()) {
-        lesson.completed = true;
-        saveAllToStorage();
-        renderLessonList();
-        showFeedback(true, `🎉 太棒了！完全正确！\n你编写的公式：${actualFormula}\n计算结果：${actualValue}`);
+        // 如果学员已登录，将通关记录写入该学员专属档案
+        const user = getCurrentUser();
+        if (user) {
+          if (!user.completedIds.includes(lesson.id)) {
+            user.completedIds.push(lesson.id);
+            saveAllData();
+          }
+          renderLessonList();
+          showFeedback(true, `🎉 太棒了！完全正确！\n公式：${actualFormula}  |  结果：${actualValue}\n（已自动记录到【${user.username}】的学习档案中）`);
+        } else {
+          showFeedback(true, `🎉 太棒了！完全正确！\n💡 提示：你当前是游客模式，建议点击右上角【学员登录/注册】保存你的通关进度！`);
+        }
         document.getElementById('next-btn').classList.remove('hidden');
       } else {
         showFeedback(false, `❌ 公式已运行，但算出来的结果是【${actualValue}】，而正确结果应该是【${lesson.expectedValue}】。请检查单元格区域是否选对！`);
@@ -563,14 +733,89 @@
     function showHint() { showFeedback(false, `💡 答案提示：${lessons[currentLessonIndex].hint}`); }
     function resetSheet() { selectLesson(currentLessonIndex); }
     function nextLesson() {
-      if (currentLessonIndex + 1 < lessons.length) {
-        selectLesson(currentLessonIndex + 1);
+      if (currentLessonIndex + 1 < lessons.length) selectLesson(currentLessonIndex + 1);
+      else alert("🎉 恭喜！你已通关当前全部课程！");
+    }
+
+    // ==================== 4. 一码一用 VIP 激活码验证 ====================
+    function openPayModal() {
+      if (!getCurrentUser()) {
+        alert("请先登录或注册您的学员账号，再激活 VIP 权益！");
+        openAuthModal('login');
+        return;
+      }
+      document.getElementById('vip-code-input').value = '';
+      document.getElementById('vip-error-msg').classList.add('hidden');
+      document.getElementById('pay-modal').classList.remove('hidden');
+    }
+
+    function closePayModal() {
+      document.getElementById('pay-modal').classList.add('hidden');
+    }
+
+    function verifyVipCode() {
+      const user = getCurrentUser();
+      if (!user) return openAuthModal('login');
+
+      const inputCode = document.getElementById('vip-code-input').value.trim().toUpperCase();
+      const errEl = document.getElementById('vip-error-msg');
+
+      const codeObj = siteConfig.vipCodePool.find(item => item.code.toUpperCase() === inputCode);
+
+      if (!codeObj) {
+        errEl.innerText = "❌ 激活码不存在，请核对后重试！";
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      if (codeObj.usedBy && codeObj.usedBy !== user.username) {
+        errEl.innerText = `❌ 该激活码已被其他学员使用失效（一码一用）！请联系老师获取新码。`;
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      // 绑定该激活码到当前学员账号
+      codeObj.usedBy = user.username;
+      user.isVip = true;
+      saveAllData();
+      refreshUserUI();
+      closePayModal();
+      alert(`🎉 激活成功！VIP 权益已永久绑定至您的账号【${user.username}】！`);
+    }
+
+    // ==================== 5. 站长管理后台（学员管理 + 激活码生成 + 出题） ====================
+    let logoClickCount = 0;
+    let logoClickTimer = null;
+
+    function secretLogoClick() {
+      if (isTeacherMode) return;
+      logoClickCount++;
+      clearTimeout(logoClickTimer);
+      if (logoClickCount >= 3) {
+        logoClickCount = 0;
+        document.getElementById('admin-pin-input').value = '';
+        document.getElementById('admin-login-err').classList.add('hidden');
+        document.getElementById('admin-login-modal').classList.remove('hidden');
+        setTimeout(() => document.getElementById('admin-pin-input').focus(), 100);
       } else {
-        alert("🎉 恭喜！你已通关当前全部课程！");
+        logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1200);
       }
     }
 
-    // ==================== 4. 教师后台管理与配置逻辑 ====================
+    function closeAdminLogin() {
+      document.getElementById('admin-login-modal').classList.add('hidden');
+    }
+
+    function confirmAdminLogin() {
+      const inputPin = document.getElementById('admin-pin-input').value.trim();
+      if (inputPin === siteConfig.teacherPin) {
+        closeAdminLogin();
+        enterTeacherMode();
+      } else {
+        document.getElementById('admin-login-err').classList.remove('hidden');
+      }
+    }
+
     function enterTeacherMode() {
       isTeacherMode = true;
       document.getElementById('student-left-panel').classList.add('hidden');
@@ -578,13 +823,12 @@
       document.getElementById('teacher-exit-btn').classList.remove('hidden');
       document.getElementById('mode-badge').innerText = '🛠️ 站长后台模式';
       document.getElementById('mode-badge').className = 'bg-pink-600 text-white font-bold text-xs px-2.5 py-0.5 rounded-full';
-      
-      // 填充当前站点设置
+
       document.getElementById('cfg-pin').value = siteConfig.teacherPin;
       document.getElementById('cfg-price').value = siteConfig.vipPrice;
-      document.getElementById('cfg-codes').value = siteConfig.vipCodes.join(', ');
       document.getElementById('cfg-desc').value = siteConfig.payDesc;
 
+      renderAdminUsersAndCodes();
       renderTeacherManageList();
       clearTeacherGrid();
     }
@@ -599,6 +843,92 @@
       selectLesson(currentLessonIndex);
     }
 
+    function switchAdminTab(tab) {
+      ['users', 'courses', 'settings'].forEach(t => {
+        document.getElementById(`admin-panel-${t}`).classList.toggle('hidden', t !== tab);
+        document.getElementById(`adm-tab-${t}`).className = t === tab 
+          ? 'py-1.5 rounded font-bold bg-[#107c41] text-white'
+          : 'py-1.5 rounded text-slate-300 hover:text-white';
+      });
+    }
+
+    function renderAdminUsersAndCodes() {
+      // 1. 渲染激活码池
+      const codeBox = document.getElementById('admin-code-list');
+      codeBox.innerHTML = '';
+      siteConfig.vipCodePool.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'flex justify-between items-center bg-slate-50 px-2.5 py-1.5 rounded border';
+        const statusHtml = item.usedBy 
+          ? `<span class="text-slate-400">已绑定学员：<b>${item.usedBy}</b></span>`
+          : `<span class="text-green-700 font-bold">🟢 可发送给新学员</span>`;
+        div.innerHTML = `
+          <span class="font-mono font-bold text-slate-800 select-all">${item.code}</span>
+          <div class="flex items-center space-x-2">
+            ${statusHtml}
+            <button onclick="deleteVipCode(${idx})" class="text-red-500 hover:text-red-700 ml-1">删</button>
+          </div>
+        `;
+        codeBox.appendChild(div);
+      });
+
+      // 2. 渲染注册学员列表
+      const userBox = document.getElementById('admin-user-list');
+      userBox.innerHTML = '';
+      const userKeys = Object.keys(usersDB);
+      if (userKeys.length === 0) {
+        userBox.innerHTML = '<div class="text-slate-400 text-center py-4">暂无注册学员（可在前台右上角测试注册）</div>';
+        return;
+      }
+      userKeys.forEach(uname => {
+        const u = usersDB[uname];
+        const div = document.createElement('div');
+        div.className = 'flex justify-between items-center bg-slate-50 px-2.5 py-2 rounded border';
+        div.innerHTML = `
+          <div>
+            <span class="font-bold text-slate-800">${u.username}</span>
+            <span class="text-slate-400 ml-1">(已通关 ${u.completedIds.length}/${lessons.length} 课)</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="toggleUserVip('${u.username}')" class="px-2 py-0.5 rounded font-bold ${u.isVip ? 'bg-amber-400 text-slate-900' : 'bg-slate-200 text-slate-600'}">
+              ${u.isVip ? '👑 已是VIP (点击取消)' : '设为VIP'}
+            </button>
+          </div>
+        `;
+        userBox.appendChild(div);
+      });
+    }
+
+    // 批量随机生成 5 个防伪激活码
+    function generateBatchVipCodes() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      for (let i = 0; i < 5; i++) {
+        let randomStr = 'VIP-';
+        for (let j = 0; j < 6; j++) {
+          randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        siteConfig.vipCodePool.unshift({ code: randomStr, usedBy: null });
+      }
+      saveAllData();
+      renderAdminUsersAndCodes();
+    }
+
+    function deleteVipCode(idx) {
+      siteConfig.vipCodePool.splice(idx, 1);
+      saveAllData();
+      renderAdminUsersAndCodes();
+    }
+
+    function toggleUserVip(uname) {
+      if (usersDB[uname]) {
+        usersDB[uname].isVip = !usersDB[uname].isVip;
+        saveAllData();
+        renderAdminUsersAndCodes();
+        refreshUserUI();
+      }
+    }
+
+    // 课程管理逻辑
     function clearTeacherGrid() {
       initExcelEngine([
         { r: 0, c: 0, v: { v: "部门", m: "部门", bg: "#f1f5f9", bl: 1 } },
@@ -622,7 +952,6 @@
 
     function saveNewLesson() {
       if (luckysheet.exitEditMode) luckysheet.exitEditMode();
-
       const title = document.getElementById('t-title').value.trim();
       const isFree = document.getElementById('t-free').value === 'true';
       const rawContent = document.getElementById('t-content').value.trim();
@@ -633,15 +962,10 @@
       const hint = document.getElementById('t-hint').value.trim();
 
       if (!title || !rawContent || !task || !cellInput || !keyword || !expected) {
-        alert("⚠️ 请把带 * 号的课程必填项填写完整！");
-        return;
+        return alert("⚠️ 请把必填项填写完整！");
       }
-
       const coord = parseCellCoord(cellInput);
-      if (!coord) {
-        alert("⚠️ 目标单元格格式不正确！请输入如 B5、C2 的坐标。");
-        return;
-      }
+      if (!coord) return alert("⚠️ 目标单元格格式不正确！");
 
       const sheetData = luckysheet.getSheetData();
       const extractedCelldata = [];
@@ -663,7 +987,6 @@
         id: Date.now(),
         title,
         free: isFree,
-        completed: false,
         content: rawContent.split('\n').map(line => `<p>${line}</p>`).join(''),
         task,
         targetCellName: coord.name,
@@ -675,13 +998,12 @@
         celldata: extractedCelldata
       });
 
-      saveAllToStorage();
+      saveAllData();
       renderTeacherManageList();
-      alert(`🎉 新课程《${title}》添加成功！\n别忘了最后点击底部按钮【导出最新 index.html】上传到 Netlify/Vercel 哦！`);
+      alert(`🎉 新课程《${title}》添加成功！`);
     }
 
     function renderTeacherManageList() {
-      document.getElementById('course-count').innerText = lessons.length;
       const box = document.getElementById('teacher-lesson-manage');
       box.innerHTML = '';
       lessons.forEach((l, idx) => {
@@ -700,12 +1022,11 @@
       if (confirm(`确定要删除《${lessons[idx].title}》吗？`)) {
         lessons.splice(idx, 1);
         if (currentLessonIndex >= lessons.length) currentLessonIndex = 0;
-        saveAllToStorage();
+        saveAllData();
         renderTeacherManageList();
       }
     }
 
-    // 处理收款码图片上传并自动压缩转成 Base64 内嵌
     function handleQrUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -714,16 +1035,14 @@
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement('canvas');
-          const size = 260;
-          canvas.width = size;
-          canvas.height = size;
+          canvas.width = 260; canvas.height = 260;
           const ctx = canvas.getContext('2d');
           ctx.fillStyle = "#ffffff";
-          ctx.fillRect(0, 0, size, size);
-          ctx.drawImage(img, 0, 0, size, size);
+          ctx.fillRect(0, 0, 260, 260);
+          ctx.drawImage(img, 0, 0, 260, 260);
           siteConfig.qrImageData = canvas.toDataURL('image/jpeg', 0.85);
-          applySiteConfigToUI();
-          alert("✅ 收款二维码图片已成功载入！请点击下方【保存上方收款与密码设置】。");
+          refreshUserUI();
+          alert("✅ 收款二维码已载入！请点击下方【保存上方设置】。");
         };
         img.src = e.target.result;
       };
@@ -732,26 +1051,18 @@
 
     function saveSiteConfig() {
       const pin = document.getElementById('cfg-pin').value.trim();
-      const price = document.getElementById('cfg-price').value.trim();
-      const codesRaw = document.getElementById('cfg-codes').value.trim();
-      const desc = document.getElementById('cfg-desc').value.trim();
-
       if (!pin) return alert("管理密码不能为空！");
       siteConfig.teacherPin = pin;
-      siteConfig.vipPrice = price || "99.00";
-      siteConfig.vipCodes = codesRaw.split(/[,，]/).map(s => s.trim().toUpperCase()).filter(Boolean);
-      siteConfig.payDesc = desc;
-
-      saveAllToStorage();
-      applySiteConfigToUI();
-      alert("✅ 密码与收款设置已保存！\n请点击最底部按钮导出最新 index.html 并上传到 Netlify/Vercel 即可全网生效！");
+      siteConfig.vipPrice = document.getElementById('cfg-price').value.trim() || "99.00";
+      siteConfig.payDesc = document.getElementById('cfg-desc').value.trim();
+      saveAllData();
+      refreshUserUI();
+      alert("✅ 设置已保存！");
     }
 
-    // 一键导出包含最新题库、最新密码、收款码图片的独立 index.html
     function exportUpdatedHtmlFile() {
-      const cleanLessons = lessons.map((l, idx) => ({ ...l, id: idx + 1, completed: false }));
       const newConfigCode = `/*__SITE_CONFIG_START__*/\n    const DEFAULT_SITE_CONFIG = ${JSON.stringify(siteConfig, null, 2)};\n    /*__SITE_CONFIG_END__*/`;
-      const newLessonsCode = `/*__LESSONS_DATA_START__*/\n    const DEFAULT_LESSONS = ${JSON.stringify(cleanLessons, null, 2)};\n    /*__LESSONS_DATA_END__*/`;
+      const newLessonsCode = `/*__LESSONS_DATA_START__*/\n    const DEFAULT_LESSONS = ${JSON.stringify(lessons, null, 2)};\n    /*__LESSONS_DATA_END__*/`;
 
       const docClone = document.documentElement.cloneNode(true);
       docClone.querySelector('#luckysheet-container').innerHTML = '';
@@ -761,6 +1072,7 @@
       docClone.querySelector('#student-left-panel').classList.remove('hidden');
       docClone.querySelector('#teacher-exit-btn').classList.add('hidden');
       docClone.querySelector('#admin-login-modal').classList.add('hidden');
+      docClone.querySelector('#auth-modal').classList.add('hidden');
 
       let htmlString = '<!DOCTYPE html>\n' + docClone.outerHTML;
       htmlString = htmlString.replace(/\/\*__SITE_CONFIG_START__\*\/[\s\S]*?\/\*__SITE_CONFIG_END__\*\//, newConfigCode);
@@ -775,34 +1087,8 @@
       URL.revokeObjectURL(url);
     }
 
-    // ==================== 5. 学员端 VIP 激活码验证 ====================
-    function openPayModal() {
-      document.getElementById('vip-error-msg').classList.add('hidden');
-      document.getElementById('pay-modal').classList.remove('hidden');
-    }
-    function closePayModal() {
-      document.getElementById('pay-modal').classList.add('hidden');
-    }
-    function verifyVipCode() {
-      const code = document.getElementById('vip-code-input').value.trim().toUpperCase();
-      const errEl = document.getElementById('vip-error-msg');
-      if (siteConfig.vipCodes.includes(code)) {
-        isVip = true;
-        localStorage.setItem(STORAGE_KEY_VIP, 'true');
-        applySiteConfigToUI();
-        closePayModal();
-        renderLessonList();
-        alert("🎉 VIP 激活码验证成功！已为您永久解锁全部高阶课程！");
-      } else {
-        errEl.innerText = "❌ 激活码无效或已过期，请核对后重试，或联系老师获取！";
-        errEl.classList.remove('hidden');
-      }
-    }
-
-    // 启动初始化
     window.onload = () => {
-      applySiteConfigToUI();
-      renderLessonList();
+      refreshUserUI();
       selectLesson(0);
     };
   </script>
